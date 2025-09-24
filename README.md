@@ -4,5 +4,5 @@ Repository for public multimedia assets
 
 Structure ideally followed for content:
 
-- collections/<collection-id>/*
+- collections/collection-id/*
 
