@@ -1,0 +1,24 @@
+{
+  "fill-color": [
+    "match",
+    ["get", "traffic_li"],
+    "Green",
+    "rgb(0,255,0)",
+    "Orange",
+    "rgb(255, 153, 0)",
+    "Red",
+    "rgb(255, 0, 0)",
+    "rgba(0, 0, 0, 0)"
+  ],
+  "stroke-width": 0.25,
+  "stroke-color": "#ffffff",
+  "tooltip": [
+    { "id": "mean_uhi", "title": "Mean UHI" },
+    { "id": "MEDIAN_BER", "title": "Median BER" }
+  ],
+  "legend": {
+    "title": "Low/Medium/High Benefit",
+    "range": ["rgb(0, 255, 0)", "rgb(255, 153, 0)", "rgb(255, 0, 0)"],
+    "domain": [-1, 1]
+  }
+}
