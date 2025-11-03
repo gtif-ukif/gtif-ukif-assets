@@ -1,26 +1,19 @@
 {
   "fill-color": [
-    [
-      "interpolate",
-      "linear",
-      ["get", "mean_uhi"],
-      -1,
-      "rgb(0,0,255)",
-      0,
-      "rgb(255, 255, 0)",
-      1,
-      "rgb(255, 0, 0"
-    ]
+    "interpolate",
+    "linear",
+    ["get", "mean_uhi"],
+    -1,
+    "rgb(0,0,255)",
+    0,
+    "rgb(255, 255, 0)",
+    1,
+    "rgb(255, 0, 0"
   ],
   "stroke-width": 0.25,
   "stroke-color": "#ffffff",
   "tooltip": [
     { "id": "labels", "title": "Labels" },
     { "id": "mean_uhi", "title": "Mean UHI" }
-  ],
-  "legend": {
-    "title": "Mean UHI",
-    "range": ["rgb(0, 0, 0)", "rgb(255, 255, 0)", "rgb(255, 255, 255)"],
-    "domain": [-1, 1]
-  }
+  ]
 }
