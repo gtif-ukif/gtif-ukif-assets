@@ -3,15 +3,15 @@
     "match",
     ["get", "traffic_li"],
     "Green",
-    "rgb(0,255,0)",
+    [0,255,0, 1],
     "Orange",
-    "rgb(255, 153, 0)",
+    [255,153,0, 1],
     "Red",
-    "rgb(255, 0, 0)",
-    "rgba(0, 0, 0, 0)"
+    [255,0,0, 1],
+    [0,0,0,0]
   ],
   "stroke-width": 0.25,
-  "stroke-color": "#ffffff",
+  "stroke-color": [255,255,255, 1],
   "tooltip": [
     { "id": "mean_uhi", "title": "Mean UHI" },
     { "id": "MEDIAN_BER", "title": "Median BER" }

@@ -1,17 +1,21 @@
 {
   "fill-color": [
     "interpolate",
-    "linear",
+    ["linear"],
     ["get", "mean_uhi"],
     -1,
-    "rgb(0,0,255)",
+    [0, 0, 4,1],
+    -0.5,
+    [81, 18, 124,1],
     0,
-    "rgb(255, 255, 0)",
+    [183, 55, 121,1],
+    0.5,
+    [252, 137, 97,1],
     1,
-    "rgb(255, 0, 0"
+    [252, 253, 191,1]
   ],
   "stroke-width": 0.25,
-  "stroke-color": "rgb(255,255,255)",
+  "stroke-color": [255,255,255, 1],
   "tooltip": [
     { "id": "mean_uhi", "title": "Mean UHI" },
     { "id": "MEDIAN_BER", "title": "Median BER" },
