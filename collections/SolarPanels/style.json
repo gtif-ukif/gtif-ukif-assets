@@ -1,17 +1,5 @@
 {
-  "fill-color": "rgba(0,0,255,0.1)",
+  "fill-color": "rgba(0,0,255,0.25)",
   "stroke-color": "rgba(0,0,255,1)",
-  "stroke-width": 1,
-  "legend": {
-    "title": "Contains Solar Panels",
-    "range": ["rgb(0, 0, 255)"],
-    "domain": ["Contains Solar Panels"],
-    "scaleType": "categorical"
-  },
-  "jsonform": {
-    "type": "object",
-    "title": "",
-    "properties": {
-    }
-  }
+  "stroke-width": 2
 }

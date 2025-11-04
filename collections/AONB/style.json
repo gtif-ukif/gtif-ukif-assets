@@ -1,9 +1,5 @@
 {
-    "fill-color": "rgba(0,0,0,1)",
-    "stroke-width": 0.25,
-    "stroke-color": "rgba(255,255,0,1)",
-    "tooltip": [
-        { "id": "source_layer", "title": "Layer" },
-        { "id": "np_name", "title": "Name" }
-    ]
+    "fill-color": "rgba(219, 158, 193,1)",
+    "stroke-width": 1,
+    "stroke-color": "rgba(255,255,0,1)"
 }
