@@ -1,5 +1,17 @@
 {
-    "fill-color": "rgb(0, 162, 232)",
-    "stroke-width": 0,
-    "stroke-color": "rgba(0, 0, 0, 0)"
+  "fill-color": "rgb(0, 162, 232)",
+  "stroke-width": 0,
+  "stroke-color": "rgba(0, 0, 0, 0)",
+  "jsonform": {
+    "type": "object",
+    "title": "Data configuration",
+    "properties": {}
+  },
+  "legend": {
+    "title": "",
+    "range": ["rgb(0, 162, 232)"],
+    "domain": ["Water Mask"],
+    "scaleType": "categorical",
+    "markType": "circle"
+  }
 }
