@@ -1,5 +1,17 @@
 {
-    "fill-color": "rgba(219, 158, 193,1)",
-    "stroke-width": 1,
-    "stroke-color": "rgba(255,255,0,1)"
+  "fill-color": "rgba(219, 158, 193,1)",
+  "stroke-width": 1,
+  "stroke-color": "rgba(255,255,0,1)",
+  "jsonform": {
+    "type": "object",
+    "title": "",
+    "properties": {}
+  },
+  "legend": {
+    "title": "Legend",
+    "range": ["rgb(219, 158, 193)"],
+    "domain": ["Area of Outstanding Natural Beauty"],
+    "scaleType": "categorical",
+    "markType": "circle"
+  }
 }

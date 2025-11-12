@@ -1,5 +1,17 @@
 {
   "fill-color": "rgba(0,0,255,0.25)",
   "stroke-color": "rgba(0,0,255,1)",
-  "stroke-width": 2
+  "stroke-width": 2,
+  "jsonform": {
+    "type": "object",
+    "title": "",
+    "properties": {}
+  },
+  "legend": {
+    "title": "Legend",
+    "range": ["rgba(0,0,255,0.25)"],
+    "domain": ["Solar Panels"],
+    "scaleType": "categorical",
+    "markType": "circle"
+  }
 }

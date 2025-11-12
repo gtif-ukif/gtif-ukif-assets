@@ -1,5 +1,17 @@
 {
-    "fill-color": "rgba(148, 126, 0,0.75)",
-    "stroke-width": 1,
-    "stroke-color": "rgba(255,255,0,1)"
+  "fill-color": "rgba(148, 126, 0,0.75)",
+  "stroke-width": 1,
+  "stroke-color": "rgba(255,255,0,1)",
+  "jsonform": {
+    "type": "object",
+    "title": "",
+    "properties": {}
+  },
+  "legend": {
+    "title": "Legend",
+    "range": ["rgb(148, 126, 0)"],
+    "domain": ["National Parks"],
+    "scaleType": "categorical",
+    "markType": "circle"
+  }
 }
