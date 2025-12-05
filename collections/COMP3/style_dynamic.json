@@ -1,0 +1,124 @@
+{
+  "fill-color": [
+    "case",
+    [
+      "all",
+      [
+        [
+          "<",
+          [
+            "match",
+            ["get", "MEDIAN_BER"],
+            "A",
+            1,
+            "B",
+            2,
+            "C",
+            3,
+            "D",
+            4,
+            "E",
+            5,
+            "F",
+            6,
+            "G",
+            7,
+            999
+          ],
+          ["var", "ber_min"]
+        ]
+      ],
+      ["<", ["get", "mean_uhi"], ["var", "mean_uhi_min"]]
+    ],
+    [0, 255, 0, 1],
+    [
+      "all",
+      [
+        [
+          ">",
+          [
+            "match",
+            ["get", "MEDIAN_BER"],
+            "A",
+            1,
+            "B",
+            2,
+            "C",
+            3,
+            "D",
+            4,
+            "E",
+            5,
+            "F",
+            6,
+            "G",
+            7,
+            999
+          ],
+          ["var", "ber_max"]
+        ]
+      ],
+      [">", ["get", "mean_uhi"], ["var", "mean_uhi_max"]]
+    ],
+    [255, 0, 0, 1],
+    [255, 153, 0, 1]
+  ],
+  "stroke-width": 0.25,
+  "stroke-color": [255, 255, 255, 1],
+  "tooltip": [
+    { "id": "mean_uhi", "title": "Mean UHI" },
+    { "id": "MEDIAN_BER", "title": "Median BER" }
+  ],
+  "variables": {
+    "mean_uhi_min": 0.2,
+    "mean_uhi_max": 0.5,
+    "ber_min": 2,
+    "ber_max": 4
+  },
+  "jsonform": {
+    "type": "object",
+    "title": "Data configuration",
+    "properties": {
+      "mean_uhi_minmax": {
+        "title": "UHI",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "mean_uhi_min": {
+            "type": "number",
+            "minimum": 0,
+            "format": "range",
+            "default": 0.2
+          },
+          "mean_uhi_max": {
+            "type": "number",
+            "maximum": 1,
+            "format": "range",
+            "default": 0.5
+          }
+        },
+        "format": "minmax"
+      },
+      "ber_minmax": {
+        "title": "BER",
+        "description": "1-7 corresponds to A-G",
+        "type": "object",
+        "properties": {
+          "ber_min": {
+            "type": "number",
+            "minimum": 1,
+            "format": "range",
+            "default": 2
+          },
+          "ber_max": {
+            "type": "number",
+            "maximum": 7,
+            "format": "range",
+            "default": 4
+          }
+        },
+        "format": "minmax"
+      }
+    }
+  }
+}
