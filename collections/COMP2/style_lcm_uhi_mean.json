@@ -1,0 +1,9 @@
+{
+  "fill-color": "rgba(0, 0, 0, 0)",
+  "stroke-width": 1,
+  "stroke-color": "rgb(0, 0, 0)",
+  "tooltip": [
+    { "id": "labels", "title": "Labels" },
+    { "id": "mean_uhi", "title": "Mean UHI" }
+  ]
+}
