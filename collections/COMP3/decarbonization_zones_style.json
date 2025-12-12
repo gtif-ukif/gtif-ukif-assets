@@ -1,5 +1,5 @@
 {
-  "fill-color": [255,255,255, 0.1],
+  "fill-color": "rgba(255,255,255, 0.1)",
   "stroke-width": 2,
-  "stroke-color": [255,255,0, 1],
+  "stroke-color": "rgba(255,255,0, 1)"
 }
