@@ -11,13 +11,7 @@
                     "projection": "EPSG:4326"
                 }
             },
-            "format": "bounding-box",
-            "default": [
-                -3.67,
-                40.23,
-                -3.6100000000000003,
-                40.29
-            ]
+            "format": "bounding-box"
         },
         "collection": {
             "type": "string",
