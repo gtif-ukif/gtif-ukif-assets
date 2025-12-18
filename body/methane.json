@@ -1,6 +1,6 @@
 {
     "inputs": {
-        "bbox": "{{bbox}}",
+        "bbox": "[{{bbox}}]",
         "collection": "{{collection}}",
         "ids": "[{{ids}}]",
         "download_bands_list": "[{{download_bands_list}}]",
