@@ -28,25 +28,14 @@
             "default": "sentinel-2-l1c"
         },
         "ids": {
-            "type": "array",
+            "type": "string",
             "title": "Choose Scene IDs",
-            "items": {
-                "type": "string"
-            },
-            "default": [
-                "S2B_MSIL1C_20230106T111349_N0509_R137_T30TVK_20230106T114817"
-            ]
+            "default": "S2B_MSIL1C_20230106T111349_N0509_R137_T30TVK_20230106T114817"
         },
         "download_bands_list": {
-            "type": "array",
+            "type": "string",
             "title": "Select bands",
-            "items": {
-                "type": "string"
-            },
-            "default": [
-                "B11",
-                "B12"
-            ]
+            "default": "B11,B12"
         },
         "catalog_url": {
             "type": "string",

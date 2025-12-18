@@ -2,9 +2,8 @@
     "inputs": {
         "bbox": "{{bbox}}",
         "collection": "{{collection}}",
-        "ids": "{{ids}}",
-        "wave_height_thresh": "{{wave_height}}",
-        "download_bands_list": "{{download_bands_list}}",
+        "ids": "[{{ids}}]",
+        "download_bands_list": "[{{download_bands_list}}]",
         "catalog_url": "{{catalog_url}}",
         "signal_geojson": "{{signal_geojson}}"
     }
