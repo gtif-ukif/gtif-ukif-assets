@@ -1,0 +1,70 @@
+{
+    "type": "object",
+    "properties": {
+        "bbox": {
+            "type": "array",
+            "title": "Select area (bbox) on map",
+            "options": {
+                "autoStartSelection": false,
+                "drawtools": {
+                    "for": "eox-map#main",
+                    "projection": "EPSG:4326"
+                }
+            },
+            "format": "bounding-box",
+            "default": [
+                -3.67,
+                40.23,
+                -3.6100000000000003,
+                40.29
+            ]
+        },
+        "collection": {
+            "type": "string",
+            "title": "Select collection",
+            "enum": [
+                "sentinel-2-l1c"
+            ],
+            "default": "sentinel-2-l1c"
+        },
+        "ids": {
+            "type": "array",
+            "title": "Choose Scene IDs",
+            "items": {
+                "type": "string"
+            },
+            "default": [
+                "S2B_MSIL1C_20230106T111349_N0509_R137_T30TVK_20230106T114817"
+            ]
+        },
+        "download_bands_list": {
+            "type": "array",
+            "title": "Select bands",
+            "items": {
+                "type": "string"
+            },
+            "default": [
+                "B11",
+                "B12"
+            ]
+        },
+        "catalog_url": {
+            "type": "string",
+            "title": "Input catalog URL",
+            "default": "https://resource-catalogue.esagtif.dec.earthdaily.com/stac"
+        },
+        "signal_geojson": {
+            "type": "geojson",
+            "title": "Select signal_geojson on map",
+            "options": {
+                "autoStartSelection": false,
+                "drawtools": {
+                    "for": "eox-map#main",
+                    "projection": "EPSG:4326"
+                }
+            },
+            "format": "polygon",
+            "default": "{\"features\": [{\"geometry\": {\"coordinates\": [[[-3.6490375688179726,40.29], [-3.6490375688179726, 40.23759392204493],[-3.6280751376359452, 40.23759392204493], [-3.6280751376359452,40.29], [-3.6490375688179726, 40.29]]], \"type\": \"Polygon\"},\"properties\": {}, \"type\": \"Feature\"}], \"type\": \"FeatureCollection\"}"
+        }
+    }
+}
