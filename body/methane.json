@@ -2,9 +2,9 @@
     "inputs": {
         "bbox": "[{{bbox}}]",
         "collection": "{{collection}}",
-        "ids": "[{{ids}}]",
-        "download_bands_list": "[{{download_bands_list}}]",
-        "catalog_url": "{{catalog_url}}",
-        "signal_geojson": "{{signal_geojson}}"
+        "ids": "['S2B_MSIL1C_20230106T111349_N0509_R137_T30TVK_20230106T114817']",
+        "download_bands_list": "['B11','B12']",
+        "catalog_url": "https://resource-catalogue.esagtif.dec.earthdaily.com/stac",
+        "signal_geojson": "{\"features\": [{\"geometry\": {\"coordinates\": [[[-3.6490375688179726,40.29], [-3.6490375688179726, 40.23759392204493],[-3.6280751376359452, 40.23759392204493], [-3.6280751376359452,40.29], [-3.6490375688179726, 40.29]]], \"type\": \"Polygon\"},\"properties\": {}, \"type\": \"Feature\"}], \"type\": \"FeatureCollection\"}"
     }
 }
