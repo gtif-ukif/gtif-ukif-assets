@@ -1,0 +1,63 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "values": []
+  },
+  "transform": [
+    {
+      "flatten": ["asset_b1.histogram[0]"],
+      "as": ["count"]
+    },
+    {
+      "window": [
+        {
+          "op": "row_number",
+          "as": "binIndex"
+        }
+      ]
+    },
+    {
+      "calculate": "datum.asset_b1.histogram[1][datum.binIndex - 1]",
+      "as": "bin_start"
+    },
+    {
+      "calculate": "datum.asset_b1.histogram[1][datum.binIndex]",
+      "as": "bin_end"
+    }
+  ],
+    "params": [
+    {
+      "name": "hover",
+      "select": {
+        "type": "point",
+        "fields": ["mean"],
+        "nearest": true,
+        "on": "pointerover",
+        "clear": "pointerout"
+      }
+    },
+    {"name": "grid", "select": "interval", "bind": "scales"}
+  ],
+  "mark": {
+    "type": "bar",
+    "tooltip": true
+  },
+
+  "encoding": {
+    "x": {
+      "field": "bin_start",
+      "type": "quantitative",
+      "title": "asset_b1 value",
+      "axis": { "format": ".3f" }
+    },
+    "y": {
+      "field": "count",
+      "type": "quantitative",
+      "title": "Pixel count"
+    },
+    "y2": {
+      "value": 0
+    }
+  },
+  "background": "transparent"
+}
