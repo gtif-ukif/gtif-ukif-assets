@@ -1,0 +1,82 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "background": "transparent",
+    "data": { "values": [] },
+  
+    "transform": [
+      { "calculate": "datum.properties.statistics.asset_b1.sum", "as": "sum" },
+      { "calculate": "datum.properties.statistics.asset_b1.mean", "as": "mean" },
+      { "calculate": "datum.properties.statistics.asset_b1.min", "as": "min" },
+      { "calculate": "datum.properties.statistics.asset_b1.max", "as": "max" },
+      { "calculate": "datum.properties.statistics.asset_b1.std", "as": "stDev" },
+      { "calculate": "datum.properties.statistics.asset_b1.valid_pixels", "as": "valid_pixels" },
+      { "calculate": "datum.properties.statistics.asset_b1.valid_percent", "as": "valid_percent" }
+    ],
+  
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "timeUnit": "utcyearmonthdate",
+        "axis": { "format": "%Y-%m-%d" },
+        "title": "Measurement date"
+      }
+    },
+  
+    "layer": [
+      {
+        "mark": { "type": "line" },
+        "encoding": {
+          "y": {
+            "field": "sum",
+            "type": "quantitative",
+            "scale": { "zero": false },
+            "title": "PM2.5 sum (µg/m³·px)"
+          }
+        }
+      },
+      {
+        "mark": { "type": "point", "size": 30 },
+        "encoding": {
+          "y": {
+            "field": "sum",
+            "type": "quantitative",
+            "scale": { "zero": false },
+            "title": ""
+          }
+        }
+      },
+      {
+        "mark": "rule",
+        "encoding": {
+          "opacity": {
+            "condition": { "value": 0.3, "param": "hover", "empty": false },
+            "value": 0
+          },
+          "tooltip": [
+            { "field": "date", "type": "temporal", "title": "Date" },
+  
+            { "field": "sum", "type": "quantitative", "format": ",.2f", "title": "sum (µg/m³·px)" },
+            { "field": "mean", "type": "quantitative", "format": ",.2f", "title": "mean (µg/m³)" },
+            { "field": "min", "type": "quantitative", "format": ",.2f", "title": "minimum (µg/m³)" },
+            { "field": "max", "type": "quantitative", "format": ",.2f", "title": "maximum (µg/m³)" },
+            { "field": "stDev", "type": "quantitative", "format": ",.2f", "title": "std dev (µg/m³)" },
+  
+            { "field": "valid_pixels", "type": "quantitative", "format": ",.0f", "title": "valid pixels" },
+            { "field": "valid_percent", "type": "quantitative", "format": ".1f", "title": "valid (%)" }
+          ]
+        },
+        "params": [
+          {
+            "name": "hover",
+            "select": { "type": "point", "nearest": true, "on": "pointerover", "clear": "pointerout" }
+          },
+          {
+            "name": "grid",
+            "select": "interval",
+            "bind": "scales"
+          }
+        ]
+      }
+    ]
+  }
