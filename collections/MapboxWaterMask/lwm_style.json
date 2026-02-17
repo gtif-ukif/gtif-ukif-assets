@@ -1,7 +1,7 @@
 {
   "fill-color": [
     "match",
-    ["get", "land"],
+    ["get", "featurecla"],
     "Land",
     [0, 0, 0, 0],
     [70, 130, 180, 1]
