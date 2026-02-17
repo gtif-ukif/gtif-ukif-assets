@@ -1,13 +1,7 @@
 {
-  "fill-color": [
-    "match",
-    ["get", "featurecla"],
-    "Land",
-    [0, 0, 0, 0],
-    [70, 130, 180, 1]
-  ],
+  "fill-color": "rgb(70, 130, 80)",
   "stroke-width": 0.25,
-  "stroke-color": [255, 255, 255, 1],
+  "stroke-color": "rgb(70, 130, 80)",
   "jsonform": {
     "type": "object",
     "title": "",
@@ -15,8 +9,8 @@
   },
   "legend": {
     "title": "Legend",
-    "range": ["rgb(70, 130, 180)"],
-    "domain": ["Land Water Mask"],
+    "range": ["rgb(70, 130, 80)"],
+    "domain": ["Water Mask"],
     "scaleType": "categorical",
     "markType": "circle"
   }
