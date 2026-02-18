@@ -6,6 +6,7 @@
   "padding": 16,
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "data": {
+    "values": [],
     "format": {
       "type": "json",
       "property": "vals"

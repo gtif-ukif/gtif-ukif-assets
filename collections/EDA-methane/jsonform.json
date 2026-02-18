@@ -1,9 +1,7 @@
 {
 
     "type": "object",
-    "title": "Methane Data",
-    "description": "methane data",
+    "description": "Methane Signal Data",
     "properties": {
-        
     }
 }
