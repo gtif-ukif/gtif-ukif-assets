@@ -1,11 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "data": {
-    "values": [],
-    "format": {
-      "type": "json",
-      "property": "vals"
-    }
+    "values": []
   },
   "mark": {
     "type": "line",
