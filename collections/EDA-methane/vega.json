@@ -1,0 +1,38 @@
+{
+  "width": "container",
+  "height": "container",
+  "autosize": "fit",
+  "resize": true,
+  "padding": 16,
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "format": {
+      "type": "json",
+      "property": "vals"
+    }
+  },
+  "mark": {
+    "type": "line",
+    "point": true
+  },
+  "params": [
+    {"name": "grid", "select": "interval", "bind": "scales"}
+  ],
+  "encoding": {
+    "x": {
+      "field": "datetime",
+      "type": "temporal",
+      "title": "Datetime"
+    },
+    "y": {
+      "field": "signal",
+      "type": "quantitative",
+      "title": "Signal"
+    },
+    "tooltip": [
+      { "field": "datetime", "type": "temporal" },
+      { "field": "signal", "type": "quantitative" }
+    ]
+  },
+  "background": "transparent"
+}
