@@ -1,0 +1,12 @@
+{
+  "circle-stroke-color": "#7F1D1D",
+  "circle-stroke-width": 1.5,
+  "circle-radius": 7,
+  "circle-fill-color": "#D73027",
+  "tooltip": [
+    { "id": "site_name", "title": "Site" },
+    { "id": "site_code", "title": "Station ID" },
+    { "id": "latitude", "title": "Latitude" },
+    { "id": "longitude", "title": "Longitude" }
+  ]
+}
