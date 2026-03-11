@@ -1,0 +1,15 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "selection_id": "{{multiQueryIndex}}",
+        "selection_label": "Selection {{multiQueryIndex}} (DN {{feature.properties.DN}})",
+        "class_label": "{{feature.properties.labels}}",
+        "DN": "{{feature.properties.DN}}"
+      },
+      "geometry": "{{feature.geometry}}"
+    }
+  ]
+}
