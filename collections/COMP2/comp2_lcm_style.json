@@ -3,7 +3,6 @@
   "stroke-color": "#0b4f7f",
   "stroke-width": 2,
   "z-index": 3,
-  "selectionCondition": "click",
   "tooltip": [
     {
       "id": "labels",
