@@ -1,0 +1,60 @@
+{
+  "fill-color": [
+    "case",
+    ["any",
+      ["==", ["var", "selected_category"], 0],
+      ["==", ["get", "category_id"], ["var", "selected_category"]]
+    ],
+    ["match", ["get", "category_id"],
+      1, [220, 38, 38, 0.5],
+      2, [107, 114, 128, 0.5],
+      3, [37, 99, 235, 0.5],
+      [0, 0, 0, 0]
+    ],
+    [0, 0, 0, 0]
+  ],
+  "stroke-color": [
+    "case",
+    ["any",
+      ["==", ["var", "selected_category"], 0],
+      ["==", ["get", "category_id"], ["var", "selected_category"]]
+    ],
+    ["match", ["get", "category_id"],
+      1, [185, 28, 28, 1],
+      2, [75, 85, 99, 1],
+      3, [29, 78, 216, 1],
+      [0, 0, 0, 0]
+    ],
+    [0, 0, 0, 0]
+  ],
+  "stroke-width": 1.5,
+  "variables": {
+    "selected_category": 0
+  },
+  "jsonform": {
+    "type": "object",
+    "title": "Filter",
+    "properties": {
+      "selected_category": {
+        "title": "Facility Type",
+        "type": "integer",
+        "enum": [0, 1, 2, 3],
+        "options": {
+          "enum_titles": ["All", "Hospitals", "Prisons", "Schools"]
+        },
+        "default": 0
+      }
+    }
+  },
+  "legend": {
+    "title": "Places of Interest",
+    "range": ["rgba(220,38,38,0.5)", "rgba(107,114,128,0.5)", "rgba(37,99,235,0.5)"],
+    "domain": ["Hospitals", "Prisons", "Schools"],
+    "scaleType": "categorical",
+    "markType": "circle"
+  },
+  "tooltip": [
+    { "id": "name", "title": "Name" },
+    { "id": "category", "title": "Type" }
+  ]
+}
