@@ -17,9 +17,13 @@
           "continuous": true,
           "featureStyles": {
             "click": {
-              "fill-color": "rgba(253, 224, 71, 0.45)",
-              "stroke-color": "#A16207",
-              "stroke-width": 2.5
+              "circle-radius": 8,
+              "circle-fill-color": "#FFFFFF",
+              "circle-stroke-color": "#F97316",
+              "circle-stroke-width": 3,
+              "fill-color": "#FFFFFF",
+              "stroke-color": "#F97316",
+              "stroke-width": 3
             }
           }
         }
