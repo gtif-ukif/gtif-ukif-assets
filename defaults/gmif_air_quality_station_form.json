@@ -9,10 +9,10 @@
       "type": "array",
       "title": "Select station(s) on map",
       "options": {
+        "featureProperty": "station_slug",
         "drawtools": {
           "for": "eox-map#main",
           "layerId": "UCL3-GMIF-air-quality-vector",
-          "featureProperty": "station_slug",
           "featureNameKey": "station_name",
           "continuous": true,
           "featureStyles": {
