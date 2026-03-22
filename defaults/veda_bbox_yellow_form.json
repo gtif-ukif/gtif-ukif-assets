@@ -1,0 +1,36 @@
+{
+  "options": {
+    "execute": true
+  },
+  "type": "object",
+  "properties": {
+    "bbox": {
+      "type": "array",
+      "title": "Select area (bbox) on map",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "number"
+      },
+      "format": "bounding-box",
+      "options": {
+        "autoStartSelection": false,
+        "drawtools": {
+          "for": "eox-map#main",
+          "projection": "EPSG:4326",
+          "featureStyles": {
+            "click": {
+              "fill-color": "rgba(255, 221, 51, 0.22)",
+              "stroke-color": "#FFDD33",
+              "stroke-width": 2.5
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "bbox"
+  ],
+  "additionalProperties": false
+}
