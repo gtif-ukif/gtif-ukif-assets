@@ -1,0 +1,174 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Daily PM2.5 station time series for MODIS versus the country-specific observed source.",
+  "background": "transparent",
+  "width": 700,
+  "height": 320,
+  "title": "Daily averaged PM2.5 (MODIS vs observed)",
+  "data": {
+    "values": []
+  },
+  "transform": [
+    {
+      "calculate": "datum.station_name != null ? datum.station_name : 'Selected station'",
+      "as": "station_name"
+    },
+    {
+      "calculate": "datum.country != null ? datum.country : ''",
+      "as": "country"
+    },
+    {
+      "calculate": "datum.observed_label != null ? datum.observed_label : 'Observed'",
+      "as": "observed_label"
+    },
+    {
+      "flatten": [
+        "timeseries"
+      ]
+    },
+    {
+      "calculate": "toDate(datum.timeseries.date)",
+      "as": "date"
+    },
+    {
+      "calculate": "datum.timeseries.modis",
+      "as": "modis"
+    },
+    {
+      "calculate": "datum.timeseries.observed",
+      "as": "observed"
+    },
+    {
+      "fold": [
+        "modis",
+        "observed"
+      ],
+      "as": [
+        "measure",
+        "value"
+      ]
+    },
+    {
+      "calculate": "datum.measure === 'modis' ? 'MODIS' : datum.observed_label",
+      "as": "series_label"
+    },
+    {
+      "calculate": "datum.station_name + ' ' + datum.series_label",
+      "as": "series"
+    },
+    {
+      "filter": "isValid(datum.date) && isFinite(datum.value)"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "date",
+      "type": "temporal",
+      "title": "Year",
+      "axis": {
+        "format": "%Y",
+        "tickCount": {
+          "interval": "year",
+          "step": 1
+        },
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "Daily averaged PM2.5 (μg/m³)",
+      "scale": {
+        "zero": false
+      }
+    },
+    "color": {
+      "field": "series",
+      "type": "nominal",
+      "title": "Series",
+      "legend": {
+        "orient": "bottom"
+      }
+    },
+    "detail": [
+      {
+        "field": "series",
+        "type": "nominal"
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 28
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "grey"
+      },
+      "encoding": {
+        "opacity": {
+          "condition": {
+            "param": "hover",
+            "value": 0.35,
+            "empty": false
+          },
+          "value": 0
+        },
+        "tooltip": [
+          {
+            "field": "station_name",
+            "type": "nominal",
+            "title": "Station"
+          },
+          {
+            "field": "country",
+            "type": "nominal",
+            "title": "Country"
+          },
+          {
+            "field": "series_label",
+            "type": "nominal",
+            "title": "Series"
+          },
+          {
+            "field": "date",
+            "type": "temporal",
+            "title": "Date",
+            "format": "%Y-%m-%d"
+          },
+          {
+            "field": "value",
+            "type": "quantitative",
+            "title": "PM2.5",
+            "format": ".2f"
+          }
+        ]
+      },
+      "params": [
+        {
+          "name": "hover",
+          "select": {
+            "type": "point",
+            "fields": [
+              "date"
+            ],
+            "nearest": true,
+            "on": "pointerover",
+            "clear": "pointerout"
+          }
+        }
+      ]
+    }
+  ]
+}

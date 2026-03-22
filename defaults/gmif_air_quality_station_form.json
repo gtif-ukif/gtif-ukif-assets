@@ -1,0 +1,34 @@
+{
+  "options": {
+    "execute": true,
+    "multiQuery": "feature"
+  },
+  "type": "object",
+  "properties": {
+    "feature": {
+      "type": "array",
+      "title": "Select station(s) on map",
+      "options": {
+        "featureProperty": "station_slug",
+        "drawtools": {
+          "for": "eox-map#main",
+          "layerId": "UCL3-GMIF-air-quality-vector",
+          "featureNameKey": "station_name",
+          "continuous": true,
+          "featureStyles": {
+            "click": {
+              "circle-radius": 8,
+              "circle-fill-color": "#FFFFFF",
+              "circle-stroke-color": "#F97316",
+              "circle-stroke-width": 3,
+              "fill-color": "#FFFFFF",
+              "stroke-color": "#F97316",
+              "stroke-width": 3
+            }
+          }
+        }
+      },
+      "format": "features"
+    }
+  }
+}

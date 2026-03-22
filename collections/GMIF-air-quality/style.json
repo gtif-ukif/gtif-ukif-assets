@@ -1,12 +1,11 @@
 {
-  "circle-stroke-color": "#7F1D1D",
-  "circle-stroke-width": 1.5,
+  "circle-stroke-color": "#A16207",
+  "circle-stroke-width": 2,
   "circle-radius": 7,
-  "circle-fill-color": "#D73027",
+  "circle-fill-color": "#FDE047",
   "tooltip": [
-    { "id": "site_name", "title": "Site" },
+    { "id": "station_name", "title": "Site" },
     { "id": "site_code", "title": "Station ID" },
-    { "id": "latitude", "title": "Latitude" },
-    { "id": "longitude", "title": "Longitude" }
+    { "id": "country", "title": "Country" }
   ]
 }

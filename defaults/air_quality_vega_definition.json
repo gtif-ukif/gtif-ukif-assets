@@ -1,0 +1,122 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "background": "transparent",
+    "data": { "values": [] },
+    "transform": [
+      {
+        "calculate": "toDate(datum.date || datum.datetime || (datum.properties && datum.properties.datetime))",
+        "as": "t"
+      },
+      {
+        "calculate": "datum.asset_b1 && datum.asset_b1.sum != null ? datum.asset_b1.sum : (datum.properties && datum.properties.statistics && datum.properties.statistics.asset_b1 ? datum.properties.statistics.asset_b1.sum : null)",
+        "as": "sum"
+      },
+      {
+        "calculate": "datum.asset_b1 && datum.asset_b1.mean != null ? datum.asset_b1.mean : (datum.properties && datum.properties.statistics && datum.properties.statistics.asset_b1 ? datum.properties.statistics.asset_b1.mean : null)",
+        "as": "mean"
+      },
+      {
+        "calculate": "datum.asset_b1 && datum.asset_b1.min != null ? datum.asset_b1.min : (datum.properties && datum.properties.statistics && datum.properties.statistics.asset_b1 ? datum.properties.statistics.asset_b1.min : null)",
+        "as": "min"
+      },
+      {
+        "calculate": "datum.asset_b1 && datum.asset_b1.max != null ? datum.asset_b1.max : (datum.properties && datum.properties.statistics && datum.properties.statistics.asset_b1 ? datum.properties.statistics.asset_b1.max : null)",
+        "as": "max"
+      },
+      {
+        "calculate": "datum.asset_b1 && datum.asset_b1.std != null ? datum.asset_b1.std : (datum.properties && datum.properties.statistics && datum.properties.statistics.asset_b1 ? datum.properties.statistics.asset_b1.std : null)",
+        "as": "stDev"
+      },
+      {
+        "calculate": "datum.asset_b1 && datum.asset_b1.valid_pixels != null ? datum.asset_b1.valid_pixels : (datum.properties && datum.properties.statistics && datum.properties.statistics.asset_b1 ? datum.properties.statistics.asset_b1.valid_pixels : null)",
+        "as": "valid_pixels"
+      },
+      {
+        "calculate": "datum.asset_b1 && datum.asset_b1.valid_percent != null ? datum.asset_b1.valid_percent : (datum.properties && datum.properties.statistics && datum.properties.statistics.asset_b1 ? datum.properties.statistics.asset_b1.valid_percent : null)",
+        "as": "valid_percent"
+      },
+      { "window": [{ "op": "row_number", "as": "index" }], "frame": [null, null] },
+      { "filter": "isValid(datum.t) && isFinite(datum.mean)" }
+    ],
+    "encoding": {
+      "x": {
+        "field": "t",
+        "timeUnit": "utcyearmonthdate",
+        "type": "temporal",
+        "axis": { "format": "%Y-%m-%d" },
+        "title": "Measurement date"
+      }
+    },
+    "layer": [
+      {
+        "mark": { "type": "line", "filled": false },
+        "encoding": {
+          "y": {
+            "field": "mean",
+            "type": "quantitative",
+            "scale": { "zero": false },
+            "title": "PM2.5 mean (µg/m³)"
+          },
+          "color": { "value": "black" }
+        }
+      },
+      {
+        "transform": [{ "filter": { "param": "hover", "empty": false } }],
+        "mark": { "type": "point", "size": 100 },
+        "encoding": {
+          "y": {
+            "field": "mean",
+            "type": "quantitative",
+            "scale": { "zero": false },
+            "title": ""
+          },
+          "color": { "value": "black" }
+        }
+      },
+      {
+        "mark": { "type": "point", "size": 30 },
+        "encoding": {
+          "y": {
+            "field": "mean",
+            "type": "quantitative",
+            "scale": { "zero": false },
+            "title": ""
+          },
+          "color": { "value": "black" }
+        }
+      },
+      {
+        "mark": "rule",
+        "encoding": {
+          "opacity": {
+            "condition": { "value": 0.3, "param": "hover", "empty": false },
+            "value": 0
+          },
+          "tooltip": [
+            { "field": "t", "type": "temporal", "title": "Date", "format": "%Y-%m-%d" },
+            { "field": "sum", "type": "quantitative", "format": ",.2f", "title": "sum (µg/m³·px)" },
+            { "field": "mean", "type": "quantitative", "format": ",.2f", "title": "mean (µg/m³)" },
+            { "field": "min", "type": "quantitative", "format": ",.2f", "title": "minimum (µg/m³)" },
+            { "field": "max", "type": "quantitative", "format": ",.2f", "title": "maximum (µg/m³)" },
+            { "field": "stDev", "type": "quantitative", "format": ",.2f", "title": "std dev (µg/m³)" },
+            { "field": "valid_pixels", "type": "quantitative", "format": ",.0f", "title": "valid pixels" },
+            { "field": "valid_percent", "type": "quantitative", "format": ".1f", "title": "valid (%)" }
+          ]
+        },
+        "params": [
+          {
+            "name": "hover",
+            "select": {
+              "type": "point",
+              "fields": ["t"],
+              "nearest": true,
+              "on": "pointerover",
+              "clear": "pointerout"
+            }
+          },
+          { "name": "grid", "select": "interval", "bind": "scales" }
+        ]
+      }
+    ]
+  }
+  
