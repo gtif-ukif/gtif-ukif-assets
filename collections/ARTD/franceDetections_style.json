@@ -1,0 +1,17 @@
+{
+  "fill-color": "rgba(75, 0, 130, 1)",
+  "stroke-width": 1,
+  "stroke-color": "rgba(75, 0, 130, 1)",
+  "jsonform": {
+    "type": "object",
+    "title": "",
+    "properties": {}
+  },
+  "legend": {
+    "title": "Legend",
+    "range": ["rgb(75, 0, 130)"],
+    "domain": ["France Auto RoofTop Detection"],
+    "scaleType": "categorical",
+    "markType": "circle"
+  }
+}
