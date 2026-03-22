@@ -2,13 +2,8 @@
   "type": "object",
   "properties": {
     "bbox": {
-      "type": "array",
+      "type": "geojson",
       "title": "Select area (bbox) on map",
-      "minItems": 4,
-      "maxItems": 4,
-      "items": {
-        "type": "number"
-      },
       "format": "bounding-box",
       "options": {
         "autoStartSelection": false,
