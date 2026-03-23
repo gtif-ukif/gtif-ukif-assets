@@ -11,7 +11,7 @@
       "options": {
         "drawtools": {
           "for": "eox-map#main",
-          "layerId": "COMP2_lcm_local",
+          "layerId": "COMP2_lcm",
           "show-list": true,
           "feature-name-key": "labels",
           "featureStyles": {
