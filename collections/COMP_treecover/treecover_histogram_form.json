@@ -13,7 +13,7 @@
           "for": "eox-map#main",
           "layerId": "COMP_treecover_lcm",
           "show-list": true,
-          "feature-name-key": "labels",
+          "feature-name-key": "DN",
           "featureStyles": {
             "layer": {
               "fill-color": "rgba(51, 153, 204, 0.45)",

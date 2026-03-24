@@ -29,11 +29,11 @@
       "as": "selection_id"
     },
     {
-      "calculate": "datum.feature && datum.feature.properties && datum.feature.properties.selection_label ? datum.feature.properties.selection_label : 'Selection ' + datum.selection_id",
+      "calculate": "datum.feature && datum.feature.properties && datum.feature.properties.selection_label == '10' ? 'Tree cover' : datum.feature && datum.feature.properties && datum.feature.properties.selection_label == '50' ? 'Built-up' : 'Selection ' + datum.selection_id",
       "as": "selection_label"
     },
     {
-      "calculate": "datum.feature && datum.feature.properties && datum.feature.properties.class_label ? datum.feature.properties.class_label : datum.selection_label",
+      "calculate": "datum.feature && datum.feature.properties && datum.feature.properties.class_label == '10' ? 'Tree cover' : datum.feature && datum.feature.properties && datum.feature.properties.class_label == '50' ? 'Built-up' : datum.selection_label",
       "as": "class_label"
     },
     {

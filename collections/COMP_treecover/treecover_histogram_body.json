@@ -5,8 +5,8 @@
       "type": "Feature",
       "properties": {
         "selection_id": "{{multiQueryIndex}}",
-        "selection_label": "{{feature.properties.labels}}",
-        "class_label": "{{feature.properties.labels}}",
+        "selection_label": "{{feature.properties.DN}}",
+        "class_label": "{{feature.properties.DN}}",
         "DN": "{{feature.properties.DN}}"
       },
       "geometry": "{{feature.geometry}}"
