@@ -1,0 +1,29 @@
+{
+  "options": { "execute": true },
+  "type": "object",
+  "properties": {
+    "feature": {
+      "type": "geojson",
+      "title": "Draw a bounding box to analyze Imperviousness & UHI distributions",
+      "options": {
+        "drawtools": {
+          "for": "eox-map#main",
+          "type": "Box",
+          "featureStyles": {
+            "layer": {
+              "fill-color": "rgba(51, 153, 204, 0.45)",
+              "stroke-color": "#1c4d6e",
+              "stroke-width": 2.5
+            },
+            "click": {
+              "fill-color": "rgba(51, 153, 204, 0.45)",
+              "stroke-color": "#1c4d6e",
+              "stroke-width": 2.5
+            }
+          }
+        }
+      },
+      "format": "geometry"
+    }
+  }
+}
