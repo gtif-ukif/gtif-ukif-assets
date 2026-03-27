@@ -1,0 +1,14 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "selection_id": "{{multiQueryIndex}}",
+        "selection_label": "{{feature.properties.MEDIAN_BER}}",
+        "class_label": "{{feature.properties.MEDIAN_BER}}"
+      },
+      "geometry": "{{feature.geometry}}"
+    }
+  ]
+}

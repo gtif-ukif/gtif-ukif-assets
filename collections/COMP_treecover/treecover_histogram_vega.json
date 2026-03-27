@@ -1,0 +1,224 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Grouped histogram comparison of UHI pixel counts for selected Tree Cover and Built-up polygons using TiTiler statistics histogram bins.",
+  "data": {
+    "name": "timeseries"
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "width": "container",
+  "height": 340,
+  "title": {
+    "text": "UHI Distribution: Tree Cover vs Built-up Areas",
+    "subtitle": "Grouped histogram of TiTiler raster-statistics bins for each selected polygon"
+  },
+  "transform": [
+    {
+      "flatten": [
+        "features"
+      ],
+      "as": [
+        "feature"
+      ]
+    },
+    {
+      "calculate": "datum.feature && datum.feature.properties ? datum.feature.properties.selection_id : null",
+      "as": "selection_id"
+    },
+    {
+      "calculate": "datum.feature && datum.feature.properties && datum.feature.properties.selection_label == '10' ? 'Tree cover' : datum.feature && datum.feature.properties && datum.feature.properties.selection_label == '50' ? 'Built-up' : 'Selection ' + datum.selection_id",
+      "as": "selection_label"
+    },
+    {
+      "calculate": "datum.feature && datum.feature.properties && datum.feature.properties.class_label == '10' ? 'Tree cover' : datum.feature && datum.feature.properties && datum.feature.properties.class_label == '50' ? 'Built-up' : datum.selection_label",
+      "as": "class_label"
+    },
+    {
+      "calculate": "datum.feature && datum.feature.properties && datum.feature.properties.statistics ? datum.feature.properties.statistics.asset_b1 : null",
+      "as": "band_stats"
+    },
+    {
+      "calculate": "datum.band_stats && datum.band_stats.histogram ? datum.band_stats.histogram[0] : []",
+      "as": "counts"
+    },
+    {
+      "calculate": "datum.band_stats && datum.band_stats.histogram ? slice(datum.band_stats.histogram[1], 0, length(datum.band_stats.histogram[1]) - 1) : []",
+      "as": "bin_starts"
+    },
+    {
+      "calculate": "datum.band_stats && datum.band_stats.histogram ? slice(datum.band_stats.histogram[1], 1, length(datum.band_stats.histogram[1])) : []",
+      "as": "bin_ends"
+    },
+    {
+      "calculate": "datum.band_stats ? datum.band_stats.mean : null",
+      "as": "mean"
+    },
+    {
+      "calculate": "datum.band_stats ? datum.band_stats.median : null",
+      "as": "median"
+    },
+    {
+      "calculate": "datum.band_stats ? datum.band_stats.min : null",
+      "as": "min"
+    },
+    {
+      "calculate": "datum.band_stats ? datum.band_stats.max : null",
+      "as": "max"
+    },
+    {
+      "calculate": "datum.band_stats ? datum.band_stats.std : null",
+      "as": "std"
+    },
+    {
+      "flatten": [
+        "counts",
+        "bin_starts",
+        "bin_ends"
+      ],
+      "as": [
+        "count",
+        "bin_start",
+        "bin_end"
+      ]
+    },
+    {
+      "filter": "isValid(datum.count) && datum.count > 0 && isValid(datum.bin_start) && isValid(datum.bin_end)"
+    },
+    {
+      "joinaggregate": [{"op": "sum", "field": "count", "as": "sum_count"}],
+      "groupby": ["selection_label"]
+    },
+    {
+      "calculate": "datum.sum_count > 0 ? (datum.count / datum.sum_count) * 100 : 0",
+      "as": "percentage"
+    },
+    {
+      "calculate": "format(datum.bin_start, '.2f') + ' to ' + format(datum.bin_end, '.2f')",
+      "as": "bin_label"
+    }
+  ],
+  "mark": {
+    "type": "bar",
+    "opacity": 0.85
+  },
+  "encoding": {
+    "x": {
+      "field": "bin_label",
+      "type": "nominal",
+      "title": "UHI bin",
+      "sort": {
+        "field": "bin_start",
+        "order": "ascending"
+      },
+      "axis": {
+        "labelAngle": -45
+      }
+    },
+    "xOffset": {
+      "field": "selection_label",
+      "type": "nominal"
+    },
+    "y": {
+      "field": "percentage",
+      "type": "quantitative",
+      "title": "% of pixels",
+      "axis": {
+        "format": ".1f"
+      }
+    },
+    "color": {
+      "field": "selection_label",
+      "type": "nominal",
+      "title": "Selected polygon",
+      "sort": null,
+      "scale": {
+        "range": [
+          "#2ca02c",
+          "#d62728",
+          "#1f77b4",
+          "#ff7f0e",
+          "#9467bd",
+          "#8c564b",
+          "#e377c2",
+          "#7f7f7f",
+          "#bcbd22",
+          "#17becf"
+        ]
+      }
+    },
+    "tooltip": [
+      {
+        "field": "selection_label",
+        "type": "nominal",
+        "title": "Selection"
+      },
+      {
+        "field": "class_label",
+        "type": "nominal",
+        "title": "Class"
+      },
+      {
+        "field": "bin_start",
+        "type": "quantitative",
+        "format": ".4f",
+        "title": "Bin start"
+      },
+      {
+        "field": "bin_end",
+        "type": "quantitative",
+        "format": ".4f",
+        "title": "Bin end"
+      },
+      {
+        "field": "percentage",
+        "type": "quantitative",
+        "format": ".2f",
+        "title": "% of pixels"
+      },
+      {
+        "field": "count",
+        "type": "quantitative",
+        "title": "Pixel count"
+      },
+      {
+        "field": "mean",
+        "type": "quantitative",
+        "format": ".4f",
+        "title": "Mean"
+      },
+      {
+        "field": "median",
+        "type": "quantitative",
+        "format": ".4f",
+        "title": "Median"
+      },
+      {
+        "field": "min",
+        "type": "quantitative",
+        "format": ".4f",
+        "title": "Min"
+      },
+      {
+        "field": "max",
+        "type": "quantitative",
+        "format": ".4f",
+        "title": "Max"
+      },
+      {
+        "field": "std",
+        "type": "quantitative",
+        "format": ".4f",
+        "title": "Std Dev"
+      }
+    ]
+  },
+  "background": "transparent",
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}

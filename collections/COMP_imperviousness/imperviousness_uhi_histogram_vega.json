@@ -1,0 +1,190 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Side-by-side histograms of Imperviousness and UHI intensity from a 2-band COG statistics response.",
+  "data": {
+    "name": "timeseries"
+  },
+  "background": "transparent",
+  "config": {
+    "view": { "stroke": null }
+  },
+  "vconcat": [
+    {
+      "title": {
+        "text": "Imperviousness Distribution (%)",
+        "subtitle": "Band 1: Percentage of impervious surface cover"
+      },
+      "width": "container",
+      "height": 220,
+      "transform": [
+        {
+          "calculate": "datum.properties && datum.properties.statistics ? datum.properties.statistics.asset_b1 : null",
+          "as": "band_stats"
+        },
+        {
+          "calculate": "datum.band_stats && datum.band_stats.histogram ? datum.band_stats.histogram[0] : []",
+          "as": "counts"
+        },
+        {
+          "calculate": "datum.band_stats && datum.band_stats.histogram ? slice(datum.band_stats.histogram[1], 0, length(datum.band_stats.histogram[1]) - 1) : []",
+          "as": "bin_starts"
+        },
+        {
+          "calculate": "datum.band_stats && datum.band_stats.histogram ? slice(datum.band_stats.histogram[1], 1, length(datum.band_stats.histogram[1])) : []",
+          "as": "bin_ends"
+        },
+        {
+          "calculate": "datum.band_stats ? datum.band_stats.mean : null",
+          "as": "mean"
+        },
+        {
+          "calculate": "datum.band_stats ? datum.band_stats.median : null",
+          "as": "median"
+        },
+        {
+          "calculate": "datum.band_stats ? datum.band_stats.min : null",
+          "as": "stat_min"
+        },
+        {
+          "calculate": "datum.band_stats ? datum.band_stats.max : null",
+          "as": "stat_max"
+        },
+        {
+          "calculate": "datum.band_stats ? datum.band_stats.std : null",
+          "as": "std"
+        },
+        {
+          "flatten": ["counts", "bin_starts", "bin_ends"],
+          "as": ["count", "bin_start", "bin_end"]
+        },
+        {
+          "filter": "isValid(datum.count) && datum.count > 0 && isValid(datum.bin_start) && isValid(datum.bin_end)"
+        },
+        {
+          "calculate": "(datum.bin_start + datum.bin_end) / 2",
+          "as": "bin_mid"
+        },
+        {
+          "calculate": "format(datum.bin_start, '.1f') + ' – ' + format(datum.bin_end, '.1f')",
+          "as": "bin_label"
+        }
+      ],
+      "mark": {
+        "type": "bar",
+        "color": "#555555",
+        "opacity": 0.85
+      },
+      "encoding": {
+        "x": {
+          "field": "bin_mid",
+          "type": "quantitative",
+          "title": "Imperviousness (%)",
+          "scale": { "domain": [0, 100] }
+        },
+        "x2": { "field": "bin_end" },
+        "y": {
+          "field": "count",
+          "type": "quantitative",
+          "title": "Pixel count"
+        },
+        "tooltip": [
+          { "field": "bin_label", "type": "nominal", "title": "Bin range" },
+          { "field": "count", "type": "quantitative", "title": "Pixel count" },
+          { "field": "mean", "type": "quantitative", "format": ".2f", "title": "Mean" },
+          { "field": "median", "type": "quantitative", "format": ".2f", "title": "Median" },
+          { "field": "stat_min", "type": "quantitative", "format": ".2f", "title": "Min" },
+          { "field": "stat_max", "type": "quantitative", "format": ".2f", "title": "Max" },
+          { "field": "std", "type": "quantitative", "format": ".2f", "title": "Std Dev" }
+        ]
+      }
+    },
+    {
+      "title": {
+        "text": "Urban Heat Island Intensity Distribution (°C)",
+        "subtitle": "Band 2: Mean UHI intensity 2022–2024"
+      },
+      "width": "container",
+      "height": 220,
+      "transform": [
+        {
+          "calculate": "datum.properties && datum.properties.statistics ? datum.properties.statistics.asset_b2 : null",
+          "as": "band_stats"
+        },
+        {
+          "calculate": "datum.band_stats && datum.band_stats.histogram ? datum.band_stats.histogram[0] : []",
+          "as": "counts"
+        },
+        {
+          "calculate": "datum.band_stats && datum.band_stats.histogram ? slice(datum.band_stats.histogram[1], 0, length(datum.band_stats.histogram[1]) - 1) : []",
+          "as": "bin_starts"
+        },
+        {
+          "calculate": "datum.band_stats && datum.band_stats.histogram ? slice(datum.band_stats.histogram[1], 1, length(datum.band_stats.histogram[1])) : []",
+          "as": "bin_ends"
+        },
+        {
+          "calculate": "datum.band_stats ? datum.band_stats.mean : null",
+          "as": "mean"
+        },
+        {
+          "calculate": "datum.band_stats ? datum.band_stats.median : null",
+          "as": "median"
+        },
+        {
+          "calculate": "datum.band_stats ? datum.band_stats.min : null",
+          "as": "stat_min"
+        },
+        {
+          "calculate": "datum.band_stats ? datum.band_stats.max : null",
+          "as": "stat_max"
+        },
+        {
+          "calculate": "datum.band_stats ? datum.band_stats.std : null",
+          "as": "std"
+        },
+        {
+          "flatten": ["counts", "bin_starts", "bin_ends"],
+          "as": ["count", "bin_start", "bin_end"]
+        },
+        {
+          "filter": "isValid(datum.count) && datum.count > 0 && isValid(datum.bin_start) && isValid(datum.bin_end)"
+        },
+        {
+          "calculate": "(datum.bin_start + datum.bin_end) / 2",
+          "as": "bin_mid"
+        },
+        {
+          "calculate": "format(datum.bin_start, '.4f') + ' – ' + format(datum.bin_end, '.4f')",
+          "as": "bin_label"
+        }
+      ],
+      "mark": {
+        "type": "bar",
+        "color": "#e6a817",
+        "opacity": 0.85
+      },
+      "encoding": {
+        "x": {
+          "field": "bin_mid",
+          "type": "quantitative",
+          "title": "UHI Intensity (°C)"
+        },
+        "x2": { "field": "bin_end" },
+        "y": {
+          "field": "count",
+          "type": "quantitative",
+          "title": "Pixel count"
+        },
+        "tooltip": [
+          { "field": "bin_label", "type": "nominal", "title": "Bin range" },
+          { "field": "count", "type": "quantitative", "title": "Pixel count" },
+          { "field": "mean", "type": "quantitative", "format": ".4f", "title": "Mean" },
+          { "field": "median", "type": "quantitative", "format": ".4f", "title": "Median" },
+          { "field": "stat_min", "type": "quantitative", "format": ".4f", "title": "Min" },
+          { "field": "stat_max", "type": "quantitative", "format": ".4f", "title": "Max" },
+          { "field": "std", "type": "quantitative", "format": ".4f", "title": "Std Dev" }
+        ]
+      }
+    }
+  ]
+}
