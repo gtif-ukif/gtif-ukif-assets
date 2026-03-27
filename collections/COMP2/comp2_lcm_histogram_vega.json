@@ -73,6 +73,10 @@
       "as": "std"
     },
     {
+      "calculate": "datum.band_stats && datum.band_stats.count ? datum.band_stats.count : 1",
+      "as": "total_count"
+    },
+    {
       "flatten": [
         "counts",
         "bin_starts",
@@ -86,6 +90,10 @@
     },
     {
       "filter": "isValid(datum.count) && datum.count > 0 && isValid(datum.bin_start) && isValid(datum.bin_end)"
+    },
+    {
+      "calculate": "datum.total_count > 0 ? (datum.count / datum.total_count) * 100 : 0",
+      "as": "percentage"
     },
     {
       "calculate": "format(datum.bin_start, '.2f') + ' to ' + format(datum.bin_end, '.2f')",
@@ -114,9 +122,12 @@
       "type": "nominal"
     },
     "y": {
-      "field": "count",
+      "field": "percentage",
       "type": "quantitative",
-      "title": "Pixel count"
+      "title": "% of pixels",
+      "axis": {
+        "format": ".1f"
+      }
     },
     "color": {
       "field": "selection_label",
@@ -162,9 +173,15 @@
         "title": "Bin end"
       },
       {
+        "field": "percentage",
+        "type": "quantitative",
+        "format": ".2f",
+        "title": "% of pixels"
+      },
+      {
         "field": "count",
         "type": "quantitative",
-        "title": "Count"
+        "title": "Pixel count"
       },
       {
         "field": "mean",
