@@ -1,0 +1,11 @@
+{
+  "circle-radius": 2,
+  "circle-fill-color": "rgba(106, 52, 167, 0.8)",
+  "circle-stroke-color": "rgba(255, 255, 255, 0.35)",
+  "circle-stroke-width": 0.4,
+  "tooltip": [
+    { "id": "source", "title": "Source" },
+    { "id": "latitude", "title": "Latitude" },
+    { "id": "longitude", "title": "Longitude" }
+  ]
+}

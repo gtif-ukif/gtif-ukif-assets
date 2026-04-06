@@ -1,0 +1,12 @@
+{
+  "circle-radius": 5,
+  "circle-fill-color": "rgba(255, 119, 0, 0.8)",
+  "circle-stroke-color": "#ffffff",
+  "circle-stroke-width": 1,
+  "tooltip": [
+    { "id": "observation_datetime", "title": "Observation" },
+    { "id": "source_rate_t_h", "title": "Source rate (t/h)" },
+    { "id": "uncertainty_t_h", "title": "Uncertainty (t/h)" },
+    { "id": "week", "title": "Week" }
+  ]
+}
