@@ -1,11 +1,9 @@
 {
   "inputs": {
-    "aoi_mode": "{{aoi_mode}}",
-    "aoi": [{{aoi.0}}, {{aoi.1}}, {{aoi.2}}, {{aoi.3}}],
-    "aoi_text": "{{aoi_text}}",
-    "toi_start": "{{toi_start}}",
-    "toi_end": "{{toi_end}}",
-    "cloud_cover_max": {{cloud_cover}},
+    "bbox": "{{aoi_text}}",
+    "start_datetime": "{{toi_start}}",
+    "end_datetime": "{{toi_end}}",
+    "cloud_cover": {{cloud_cover}},
     "limit": {{limit}}
   }
 }
