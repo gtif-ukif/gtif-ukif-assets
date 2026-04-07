@@ -39,7 +39,12 @@
             "type": "string",
             "title": "AOI (manual bbox: minLon,minLat,maxLon,maxLat)",
             "default": "",
-            "description": "Leave empty to use drawn AOI. Only used when AOI input method is Text."
+            "description": "Leave empty to use drawn AOI.",
+            "options": {
+                "inputAttributes": {
+                    "placeholder": "-3.67, 40.23, -3.61, 40.29"
+                }
+            }
         },
         "toi_start": {
             "type": "string",
