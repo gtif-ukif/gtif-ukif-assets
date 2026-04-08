@@ -3,11 +3,11 @@
   "data": {
     "values": []
   },
-  "params": [
-    {"name": "grid", "select": "interval", "bind": "scales"}
-  ],
   "layer": [
     {
+      "params": [
+        {"name": "grid", "select": "interval", "bind": "scales"}
+      ],
       "transform": [
         {"filter": "datum.emit_detection !== true"}
       ],
