@@ -3,28 +3,55 @@
   "data": {
     "values": []
   },
-  "mark": {
-    "type": "line",
-    "point": true
-  },
   "params": [
     {"name": "grid", "select": "interval", "bind": "scales"}
   ],
-  "encoding": {
-    "x": {
-      "field": "datetime",
-      "type": "temporal",
-      "title": "Datetime"
+  "layer": [
+    {
+      "transform": [
+        {"filter": "datum.emit_detection !== true"}
+      ],
+      "mark": {
+        "type": "line",
+        "point": true
+      },
+      "encoding": {
+        "x": {
+          "field": "datetime",
+          "type": "temporal",
+          "title": "Datetime"
+        },
+        "y": {
+          "field": "signal",
+          "type": "quantitative",
+          "title": "Signal"
+        },
+        "tooltip": [
+          {"field": "datetime", "type": "temporal"},
+          {"field": "signal", "type": "quantitative"}
+        ]
+      }
     },
-    "y": {
-      "field": "signal",
-      "type": "quantitative",
-      "title": "Signal"
-    },
-    "tooltip": [
-      { "field": "datetime", "type": "temporal" },
-      { "field": "signal", "type": "quantitative" }
-    ]
-  },
+    {
+      "transform": [
+        {"filter": "datum.emit_detection === true"}
+      ],
+      "mark": {
+        "type": "rule",
+        "strokeDash": [6, 4],
+        "strokeWidth": 2,
+        "color": "#e45756"
+      },
+      "encoding": {
+        "x": {
+          "field": "datetime",
+          "type": "temporal"
+        },
+        "tooltip": [
+          {"field": "datetime", "type": "temporal", "title": "EMIT Detection"}
+        ]
+      }
+    }
+  ],
   "background": "transparent"
 }
