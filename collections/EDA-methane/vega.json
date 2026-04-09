@@ -22,20 +22,20 @@
       "mark": {
         "type": "rule",
         "strokeDash": [8, 4, 2, 4],
-        "strokeWidth": 1,
-        "opacity": 0.6
+        "strokeWidth": 1.5,
+        "opacity": 0.8
       },
       "encoding": {
         "y": {"field": "value", "type": "quantitative"},
         "color": {
           "datum": "mean ±1σ",
           "type": "nominal",
-          "scale": {"domain": ["mean ±1σ"], "range": ["gray"]},
+          "scale": {"domain": ["mean ±1σ"], "range": ["#ff8c00"]},
           "legend": {
             "title": null,
-            "symbolStrokeWidth": 1,
+            "symbolStrokeWidth": 1.5,
             "symbolDash": [6, 2, 2, 2],
-            "symbolStrokeColor": "gray"
+            "symbolStrokeColor": "#ff8c00"
           }
         }
       }
@@ -50,7 +50,7 @@
       "mark": {
         "type": "line",
         "strokeDash": [6, 3],
-        "strokeWidth": 1.5
+        "strokeWidth": 2
       },
       "encoding": {
         "x": {"field": "datetime", "type": "temporal"},
@@ -58,12 +58,12 @@
         "color": {
           "field": "series",
           "type": "nominal",
-          "scale": {"domain": ["filtered"], "range": ["#555555"]},
+          "scale": {"domain": ["filtered"], "range": ["#222222"]},
           "legend": {
             "title": null,
             "symbolStrokeWidth": 2,
             "symbolDash": [6, 4],
-            "symbolStrokeColor": "#555555"
+            "symbolStrokeColor": "#222222"
           }
         }
       }
@@ -80,7 +80,7 @@
       "mark": {
         "type": "point",
         "filled": true,
-        "size": 60
+        "size": 70
       },
       "encoding": {
         "x": {
@@ -96,11 +96,11 @@
         "color": {
           "field": "series",
           "type": "nominal",
-          "scale": {"domain": ["Sentinel-2 Observation"], "range": ["#1f77b4"]},
+          "scale": {"domain": ["Sentinel-2 Observation"], "range": ["#0066ff"]},
           "legend": {
             "title": null,
             "symbolType": "circle",
-            "symbolSize": 60
+            "symbolSize": 70
           }
         },
         "tooltip": [
@@ -117,8 +117,8 @@
       "mark": {
         "type": "rule",
         "strokeDash": [8, 4, 2, 4],
-        "strokeWidth": 1.5,
-        "color": "#1f77b4"
+        "strokeWidth": 2,
+        "color": "#0066ff"
       },
       "encoding": {
         "x": {
