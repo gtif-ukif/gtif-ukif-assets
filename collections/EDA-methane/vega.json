@@ -3,44 +3,122 @@
   "data": {
     "values": []
   },
+  "resolve": {
+    "scale": {"color": "independent"}
+  },
   "layer": [
     {
+      "description": "mean ±1σ horizontal lines",
+      "transform": [
+        {"filter": "datum.signal != null"},
+        {"joinaggregate": [
+          {"op": "mean", "field": "signal", "as": "mean_val"},
+          {"op": "stdev", "field": "signal", "as": "std_val"}
+        ]},
+        {"calculate": "datum.mean_val + datum.std_val", "as": "upper"},
+        {"calculate": "datum.mean_val - datum.std_val", "as": "lower"},
+        {"fold": ["mean_val", "upper", "lower"], "as": ["stat", "value"]}
+      ],
+      "mark": {
+        "type": "rule",
+        "strokeDash": [8, 4, 2, 4],
+        "strokeWidth": 1,
+        "opacity": 0.6
+      },
+      "encoding": {
+        "y": {"field": "value", "type": "quantitative"},
+        "color": {
+          "datum": "mean ±1σ",
+          "type": "nominal",
+          "scale": {"domain": ["mean ±1σ"], "range": ["gray"]},
+          "legend": {
+            "title": null,
+            "symbolStrokeWidth": 1,
+            "symbolDash": [6, 2, 2, 2],
+            "symbolStrokeColor": "gray"
+          }
+        }
+      }
+    },
+    {
+      "description": "LOESS smoothed curve (filtered)",
+      "transform": [
+        {"filter": "datum.signal != null"},
+        {"loess": "signal", "on": "datetime", "bandwidth": 0.4},
+        {"calculate": "'filtered'", "as": "series"}
+      ],
+      "mark": {
+        "type": "line",
+        "strokeDash": [6, 3],
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": {"field": "datetime", "type": "temporal"},
+        "y": {"field": "signal", "type": "quantitative"},
+        "color": {
+          "field": "series",
+          "type": "nominal",
+          "scale": {"domain": ["filtered"], "range": ["#555555"]},
+          "legend": {
+            "title": null,
+            "symbolStrokeWidth": 2,
+            "symbolDash": [6, 4],
+            "symbolStrokeColor": "#555555"
+          }
+        }
+      }
+    },
+    {
+      "description": "Sentinel-2 Observation points",
       "params": [
         {"name": "grid", "select": "interval", "bind": "scales"}
       ],
       "transform": [
-        {"filter": "datum.emit_detection !== true"}
+        {"filter": "datum.signal != null"},
+        {"calculate": "'Sentinel-2 Observation'", "as": "series"}
       ],
       "mark": {
-        "type": "line",
-        "point": true
+        "type": "point",
+        "filled": true,
+        "size": 60
       },
       "encoding": {
         "x": {
           "field": "datetime",
           "type": "temporal",
-          "title": "Datetime"
+          "title": null
         },
         "y": {
           "field": "signal",
           "type": "quantitative",
-          "title": "Signal"
+          "title": "Methane column enhancement (mol m⁻²)"
+        },
+        "color": {
+          "field": "series",
+          "type": "nominal",
+          "scale": {"domain": ["Sentinel-2 Observation"], "range": ["#1f77b4"]},
+          "legend": {
+            "title": null,
+            "symbolType": "circle",
+            "symbolSize": 60
+          }
         },
         "tooltip": [
-          {"field": "datetime", "type": "temporal"},
-          {"field": "signal", "type": "quantitative"}
+          {"field": "datetime", "type": "temporal", "title": "Datetime"},
+          {"field": "signal", "type": "quantitative", "title": "Signal"}
         ]
       }
     },
     {
+      "description": "EMIT vertical detection lines",
       "transform": [
         {"filter": "datum.emit_detection === true"}
       ],
       "mark": {
         "type": "rule",
-        "strokeDash": [6, 4],
-        "strokeWidth": 2,
-        "color": "#e45756"
+        "strokeDash": [8, 4, 2, 4],
+        "strokeWidth": 1.5,
+        "color": "#1f77b4"
       },
       "encoding": {
         "x": {
