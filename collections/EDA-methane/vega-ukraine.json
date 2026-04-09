@@ -1,5 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {"text": "Ukraine (48° 13' 58.4400\" N + 37° 7' 10.9200\" E)", "fontSize": 14},
   "data": {
     "values": []
   },
