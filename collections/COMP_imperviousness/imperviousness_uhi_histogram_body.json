@@ -1,5 +1,5 @@
 {
   "type": "Feature",
   "properties": {},
-  "geometry": {{feature}}
+  "geometry": {{{feature}}}
 }
