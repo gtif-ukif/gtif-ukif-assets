@@ -14,6 +14,7 @@
     "subtitleFontSize": 11,
     "subtitleColor": "#666"
   },
+  "data": { "name": "timeseries" },
   "hconcat": [
     {
       "title": {
@@ -24,7 +25,6 @@
         "subtitleFontSize": 10,
         "subtitleColor": "#666"
       },
-      "data": { "name": "timeseries" },
       "width": 280,
       "height": 260,
       "transform": [
@@ -129,7 +129,6 @@
         "subtitleFontSize": 10,
         "subtitleColor": "#666"
       },
-      "data": { "name": "timeseries" },
       "width": 280,
       "height": 260,
       "transform": [
