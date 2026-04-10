@@ -1,84 +1,76 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Simple stacked histograms of Imperviousness (band 1) and UHI intensity (band 2) from a single 2-band COG /statistics response.",
+  "description": "Single-view bar chart of band 1 (Imperviousness) and band 2 (UHI) histogram counts from a 2-band COG /statistics response.",
   "background": "transparent",
+  "autosize": { "type": "pad", "contains": "padding" },
   "config": {
     "view": { "stroke": null }
   },
-  "vconcat": [
+  "title": {
+    "text": "Imperviousness and UHI pixel histograms",
+    "subtitle": "Bin index 1\u201320 \u2014 band 1 (gray) = imperviousness, band 2 (amber) = UHI"
+  },
+  "data": { "name": "timeseries" },
+  "transform": [
     {
-      "title": "Imperviousness Distribution (band 1)",
-      "data": { "name": "timeseries" },
-      "width": "container",
-      "height": 200,
-      "transform": [
-        {
-          "calculate": "datum.properties.statistics.asset_b1.histogram[0]",
-          "as": "counts"
-        },
-        {
-          "flatten": ["counts"],
-          "as": ["count"]
-        },
-        {
-          "window": [{ "op": "row_number", "as": "bin" }]
-        }
-      ],
-      "mark": { "type": "bar", "color": "#555555", "opacity": 0.85 },
-      "encoding": {
-        "x": {
-          "field": "bin",
-          "type": "ordinal",
-          "title": "Bin",
-          "axis": { "labelAngle": 0 }
-        },
-        "y": {
-          "field": "count",
-          "type": "quantitative",
-          "title": "Pixel count"
-        },
-        "tooltip": [
-          { "field": "bin", "type": "ordinal", "title": "Bin #" },
-          { "field": "count", "type": "quantitative", "title": "Pixel count" }
-        ]
-      }
+      "calculate": "datum.properties.statistics.asset_b1.histogram[0]",
+      "as": "counts_b1"
     },
     {
-      "title": "Urban Heat Island Distribution (band 2)",
-      "data": { "name": "timeseries" },
-      "width": "container",
-      "height": 200,
-      "transform": [
-        {
-          "calculate": "datum.properties.statistics.asset_b2.histogram[0]",
-          "as": "counts"
-        },
-        {
-          "flatten": ["counts"],
-          "as": ["count"]
-        },
-        {
-          "window": [{ "op": "row_number", "as": "bin" }]
-        }
-      ],
-      "mark": { "type": "bar", "color": "#e6a817", "opacity": 0.85 },
-      "encoding": {
-        "x": {
-          "field": "bin",
-          "type": "ordinal",
-          "title": "Bin",
-          "axis": { "labelAngle": 0 }
-        },
-        "y": {
-          "field": "count",
-          "type": "quantitative",
-          "title": "Pixel count"
-        },
-        "tooltip": [
-          { "field": "bin", "type": "ordinal", "title": "Bin #" },
-          { "field": "count", "type": "quantitative", "title": "Pixel count" }
-        ]
-      }
+      "calculate": "datum.properties.statistics.asset_b2.histogram[0]",
+      "as": "counts_b2"
+    },
+    {
+      "flatten": ["counts_b1", "counts_b2"],
+      "as": ["count_imperv", "count_uhi"]
+    },
+    {
+      "window": [{ "op": "row_number", "as": "bin" }]
+    },
+    {
+      "fold": ["count_imperv", "count_uhi"],
+      "as": ["band", "count"]
+    },
+    {
+      "calculate": "datum.band == 'count_imperv' ? 'Imperviousness' : 'UHI'",
+      "as": "band"
     }
-  ]
+  ],
+  "width": 560,
+  "height": 280,
+  "mark": {
+    "type": "bar",
+    "opacity": 0.85
+  },
+  "encoding": {
+    "x": {
+      "field": "bin",
+      "type": "ordinal",
+      "title": "Histogram bin",
+      "axis": { "labelAngle": 0 }
+    },
+    "xOffset": {
+      "field": "band",
+      "type": "nominal"
+    },
+    "y": {
+      "field": "count",
+      "type": "quantitative",
+      "title": "Pixel count"
+    },
+    "color": {
+      "field": "band",
+      "type": "nominal",
+      "title": "Band",
+      "scale": {
+        "domain": ["Imperviousness", "UHI"],
+        "range": ["#555555", "#e6a817"]
+      }
+    },
+    "tooltip": [
+      { "field": "band", "type": "nominal", "title": "Band" },
+      { "field": "bin", "type": "ordinal", "title": "Bin #" },
+      { "field": "count", "type": "quantitative", "title": "Pixel count" }
+    ]
+  }
 }
