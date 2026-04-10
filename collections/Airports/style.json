@@ -1,0 +1,18 @@
+{
+  "circle-radius": 6,
+  "circle-fill-color": "rgba(0, 100, 200, 0.85)",
+  "circle-stroke-width": 1.5,
+  "circle-stroke-color": "rgba(255, 255, 255, 1)",
+  "jsonform": {
+    "type": "object",
+    "title": "",
+    "properties": {}
+  },
+  "legend": {
+    "title": "Legend",
+    "range": ["rgb(0, 100, 200)"],
+    "domain": ["Airports"],
+    "scaleType": "categorical",
+    "markType": "circle"
+  }
+}
