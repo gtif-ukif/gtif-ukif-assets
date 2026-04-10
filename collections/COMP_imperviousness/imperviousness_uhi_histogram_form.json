@@ -23,7 +23,7 @@
           }
         }
       },
-      "format": "geometry"
+      "format": "bounding-box"
     }
   }
 }
