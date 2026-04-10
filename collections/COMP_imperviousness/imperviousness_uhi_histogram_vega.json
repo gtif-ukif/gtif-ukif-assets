@@ -1,14 +1,14 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Single-view bar chart of band 1 (Imperviousness) and band 2 (UHI) histogram counts from a 2-band COG /statistics response.",
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Grouped histogram of band 1 (Imperviousness) and band 2 (UHI) pixel distributions from a 2-band COG /statistics response, normalized to percentages.",
   "background": "transparent",
   "autosize": { "type": "pad", "contains": "padding" },
   "config": {
     "view": { "stroke": null }
   },
   "title": {
-    "text": "Imperviousness and UHI pixel histograms",
-    "subtitle": "Bin index 1\u201320 \u2014 band 1 (gray) = imperviousness, band 2 (amber) = UHI"
+    "text": "Imperviousness vs Urban Heat Island Distribution",
+    "subtitle": "Pixel histograms within selected bbox \u2014 hover bars for actual bin range"
   },
   "data": { "name": "timeseries" },
   "transform": [
@@ -21,6 +21,22 @@
       "as": "counts_b2"
     },
     {
+      "calculate": "datum.properties.statistics.asset_b1.histogram[1]",
+      "as": "edges_b1"
+    },
+    {
+      "calculate": "datum.properties.statistics.asset_b2.histogram[1]",
+      "as": "edges_b2"
+    },
+    {
+      "calculate": "datum.properties.statistics.asset_b1.mean",
+      "as": "imperv_mean"
+    },
+    {
+      "calculate": "datum.properties.statistics.asset_b2.mean",
+      "as": "uhi_mean"
+    },
+    {
       "flatten": ["counts_b1", "counts_b2"],
       "as": ["count_imperv", "count_uhi"]
     },
@@ -28,16 +44,48 @@
       "window": [{ "op": "row_number", "as": "bin" }]
     },
     {
-      "fold": ["count_imperv", "count_uhi"],
-      "as": ["band", "count"]
+      "calculate": "datum.edges_b1[datum.bin - 1]",
+      "as": "imperv_start"
     },
     {
-      "calculate": "datum.band == 'count_imperv' ? 'Imperviousness' : 'UHI'",
+      "calculate": "datum.edges_b1[datum.bin]",
+      "as": "imperv_end"
+    },
+    {
+      "calculate": "datum.edges_b2[datum.bin - 1]",
+      "as": "uhi_start"
+    },
+    {
+      "calculate": "datum.edges_b2[datum.bin]",
+      "as": "uhi_end"
+    },
+    {
+      "fold": ["count_imperv", "count_uhi"],
+      "as": ["band_key", "count"]
+    },
+    {
+      "calculate": "datum.band_key == 'count_imperv' ? 'Imperviousness' : 'UHI'",
       "as": "band"
+    },
+    {
+      "joinaggregate": [{ "op": "sum", "field": "count", "as": "band_total" }],
+      "groupby": ["band"]
+    },
+    {
+      "calculate": "datum.band_total > 0 ? (datum.count / datum.band_total) * 100 : 0",
+      "as": "percentage"
+    },
+    {
+      "calculate": "datum.band == 'Imperviousness' ? format(datum.imperv_start, '.0f') + '\u2013' + format(datum.imperv_end, '.0f') + ' %' : format(datum.uhi_start, '.2f') + '\u2013' + format(datum.uhi_end, '.2f') + ' \u00b0C'",
+      "as": "bin_range"
+    },
+    {
+      "calculate": "datum.band == 'Imperviousness' ? datum.imperv_mean : datum.uhi_mean",
+      "as": "band_mean"
     }
   ],
   "width": 560,
-  "height": 280,
+  "height": 300,
   "mark": {
     "type": "bar",
     "opacity": 0.85
@@ -46,7 +94,7 @@
     "x": {
       "field": "bin",
       "type": "ordinal",
-      "title": "Histogram bin",
+      "title": "Histogram bin (1\u201320)",
       "axis": { "labelAngle": 0 }
     },
     "xOffset": {
@@ -54,9 +102,10 @@
       "type": "nominal"
     },
     "y": {
-      "field": "count",
+      "field": "percentage",
       "type": "quantitative",
-      "title": "Pixel count"
+      "title": "% of pixels",
+      "axis": { "format": ".1f" }
     },
     "color": {
       "field": "band",
@@ -70,7 +119,10 @@
     "tooltip": [
       { "field": "band", "type": "nominal", "title": "Band" },
       { "field": "bin", "type": "ordinal", "title": "Bin #" },
-      { "field": "count", "type": "quantitative", "title": "Pixel count" }
+      { "field": "bin_range", "type": "nominal", "title": "Bin range" },
+      { "field": "count", "type": "quantitative", "title": "Pixel count" },
+      { "field": "percentage", "type": "quantitative", "format": ".2f", "title": "% of pixels" },
+      { "field": "band_mean", "type": "quantitative", "format": ".3f", "title": "Band mean" }
     ]
   }
 }
