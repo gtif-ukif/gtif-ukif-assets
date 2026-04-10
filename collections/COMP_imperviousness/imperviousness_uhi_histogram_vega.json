@@ -1,142 +1,84 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "Faceted histograms of Imperviousness (band 1) and UHI intensity (band 2) from a single 2-band COG /statistics response.",
-  "data": {
-    "name": "timeseries"
-  },
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Simple stacked histograms of Imperviousness (band 1) and UHI intensity (band 2) from a single 2-band COG /statistics response.",
   "background": "transparent",
   "config": {
     "view": { "stroke": null }
   },
-  "title": {
-    "text": "Imperviousness vs Urban Heat Island Distribution",
-    "subtitle": "Pixel histograms within selected bbox"
-  },
-  "transform": [
+  "vconcat": [
     {
-      "calculate": "datum.properties && datum.properties.statistics ? [datum.properties.statistics.asset_b1, datum.properties.statistics.asset_b2] : []",
-      "as": "band_stats_array"
-    },
-    {
-      "calculate": "['Imperviousness (%)', 'UHI Intensity (\u00b0C)']",
-      "as": "band_label_array"
-    },
-    {
-      "flatten": ["band_stats_array", "band_label_array"],
-      "as": ["band_stats", "band"]
-    },
-    {
-      "filter": "datum.band_stats && datum.band_stats.histogram"
-    },
-    {
-      "calculate": "datum.band_stats.histogram[0]",
-      "as": "counts"
-    },
-    {
-      "calculate": "slice(datum.band_stats.histogram[1], 0, length(datum.band_stats.histogram[1]) - 1)",
-      "as": "bin_starts"
-    },
-    {
-      "calculate": "slice(datum.band_stats.histogram[1], 1, length(datum.band_stats.histogram[1]))",
-      "as": "bin_ends"
-    },
-    {
-      "calculate": "datum.band_stats.mean",
-      "as": "mean"
-    },
-    {
-      "calculate": "datum.band_stats.median",
-      "as": "median"
-    },
-    {
-      "calculate": "datum.band_stats.min",
-      "as": "stat_min"
-    },
-    {
-      "calculate": "datum.band_stats.max",
-      "as": "stat_max"
-    },
-    {
-      "calculate": "datum.band_stats.std",
-      "as": "std"
-    },
-    {
-      "flatten": ["counts", "bin_starts", "bin_ends"],
-      "as": ["count", "bin_start", "bin_end"]
-    },
-    {
-      "filter": "isValid(datum.count) && datum.count > 0 && isValid(datum.bin_start) && isValid(datum.bin_end)"
-    },
-    {
-      "joinaggregate": [{ "op": "sum", "field": "count", "as": "sum_count" }],
-      "groupby": ["band"]
-    },
-    {
-      "calculate": "datum.sum_count > 0 ? (datum.count / datum.sum_count) * 100 : 0",
-      "as": "percentage"
-    },
-    {
-      "calculate": "(datum.bin_start + datum.bin_end) / 2",
-      "as": "bin_mid"
-    },
-    {
-      "calculate": "format(datum.bin_start, '.2f') + ' \u2013 ' + format(datum.bin_end, '.2f')",
-      "as": "bin_label"
-    }
-  ],
-  "facet": {
-    "column": {
-      "field": "band",
-      "type": "nominal",
-      "sort": ["Imperviousness (%)", "UHI Intensity (\u00b0C)"],
-      "header": { "title": null, "labelFontSize": 12, "labelFontWeight": "bold" }
-    }
-  },
-  "spec": {
-    "width": 320,
-    "height": 240,
-    "mark": {
-      "type": "bar",
-      "opacity": 0.85
-    },
-    "encoding": {
-      "x": {
-        "field": "bin_label",
-        "type": "nominal",
-        "title": null,
-        "sort": { "field": "bin_start", "order": "ascending" },
-        "axis": { "labelAngle": -45, "labelFontSize": 9 }
-      },
-      "y": {
-        "field": "percentage",
-        "type": "quantitative",
-        "title": "% of pixels",
-        "axis": { "format": ".1f" }
-      },
-      "color": {
-        "field": "band",
-        "type": "nominal",
-        "title": "Band",
-        "scale": {
-          "domain": ["Imperviousness (%)", "UHI Intensity (\u00b0C)"],
-          "range": ["#555555", "#e6a817"]
+      "title": "Imperviousness Distribution (band 1)",
+      "data": { "name": "timeseries" },
+      "width": "container",
+      "height": 200,
+      "transform": [
+        {
+          "calculate": "datum.properties.statistics.asset_b1.histogram[0]",
+          "as": "counts"
         },
-        "legend": null
-      },
-      "tooltip": [
-        { "field": "band", "type": "nominal", "title": "Band" },
-        { "field": "bin_label", "type": "nominal", "title": "Bin" },
-        { "field": "count", "type": "quantitative", "title": "Pixel count" },
-        { "field": "percentage", "type": "quantitative", "format": ".2f", "title": "% of pixels" },
-        { "field": "mean", "type": "quantitative", "format": ".4f", "title": "Mean" },
-        { "field": "median", "type": "quantitative", "format": ".4f", "title": "Median" },
-        { "field": "stat_min", "type": "quantitative", "format": ".4f", "title": "Min" },
-        { "field": "stat_max", "type": "quantitative", "format": ".4f", "title": "Max" },
-        { "field": "std", "type": "quantitative", "format": ".4f", "title": "Std Dev" }
-      ]
+        {
+          "flatten": ["counts"],
+          "as": ["count"]
+        },
+        {
+          "window": [{ "op": "row_number", "as": "bin" }]
+        }
+      ],
+      "mark": { "type": "bar", "color": "#555555", "opacity": 0.85 },
+      "encoding": {
+        "x": {
+          "field": "bin",
+          "type": "ordinal",
+          "title": "Bin",
+          "axis": { "labelAngle": 0 }
+        },
+        "y": {
+          "field": "count",
+          "type": "quantitative",
+          "title": "Pixel count"
+        },
+        "tooltip": [
+          { "field": "bin", "type": "ordinal", "title": "Bin #" },
+          { "field": "count", "type": "quantitative", "title": "Pixel count" }
+        ]
+      }
+    },
+    {
+      "title": "Urban Heat Island Distribution (band 2)",
+      "data": { "name": "timeseries" },
+      "width": "container",
+      "height": 200,
+      "transform": [
+        {
+          "calculate": "datum.properties.statistics.asset_b2.histogram[0]",
+          "as": "counts"
+        },
+        {
+          "flatten": ["counts"],
+          "as": ["count"]
+        },
+        {
+          "window": [{ "op": "row_number", "as": "bin" }]
+        }
+      ],
+      "mark": { "type": "bar", "color": "#e6a817", "opacity": 0.85 },
+      "encoding": {
+        "x": {
+          "field": "bin",
+          "type": "ordinal",
+          "title": "Bin",
+          "axis": { "labelAngle": 0 }
+        },
+        "y": {
+          "field": "count",
+          "type": "quantitative",
+          "title": "Pixel count"
+        },
+        "tooltip": [
+          { "field": "bin", "type": "ordinal", "title": "Bin #" },
+          { "field": "count", "type": "quantitative", "title": "Pixel count" }
+        ]
+      }
     }
-  },
-  "resolve": {
-    "scale": { "x": "independent", "y": "independent" }
-  }
+  ]
 }
