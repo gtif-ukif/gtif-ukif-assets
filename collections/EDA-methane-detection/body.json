@@ -1,0 +1,9 @@
+{
+  "inputs": {
+    "bbox": "{{#aoi_text}}[{{aoi_text}}]{{/aoi_text}}{{^aoi_text}}[{{aoi}}]{{/aoi_text}}",
+    "start_datetime": "{{toi_start}}",
+    "end_datetime": "{{toi_end}}",
+    "cloud_cover": {{cloud_cover}},
+    "limit": {{limit}}
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Box plot of methane enhancement pixel distribution per acquisition date.",
+  "width": 520,
+  "height": 400,
+  "background": "transparent",
+  "title": {
+    "text": "Methane Enhancement Distribution",
+    "subtitle": "Per-pixel values relative to background (whiskers clipped to 1.5x IQR; full min/max in tooltip)",
+    "fontSize": 14,
+    "subtitleFontSize": 11
+  },
+  "data": {
+    "values": []
+  },
+  "transform": [
+    {"calculate": "datum.q3 - datum.q1", "as": "iqr"},
+    {
+      "calculate": "max(datum.min, datum.q1 - 1.5 * datum.iqr)",
+      "as": "lower_whisker"
+    },
+    {
+      "calculate": "min(datum.max, datum.q3 + 1.5 * datum.iqr)",
+      "as": "upper_whisker"
+    },
+    {
+      "joinaggregate": [
+        {"op": "min", "field": "q1", "as": "global_q1_min"},
+        {"op": "max", "field": "q3", "as": "global_q3_max"}
+      ]
+    },
+    {
+      "calculate": "max(0.15, (datum.global_q3_max - datum.global_q1_min) * 0.2)",
+      "as": "plot_padding"
+    },
+    {
+      "calculate": "datum.global_q1_min - datum.plot_padding",
+      "as": "plot_min"
+    },
+    {
+      "calculate": "datum.global_q3_max + datum.plot_padding",
+      "as": "plot_max"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "datetime",
+      "type": "temporal",
+      "title": "Acquisition Date",
+      "axis": {
+        "format": "%Y-%m-%d",
+        "labelAngle": -30,
+        "labelAlign": "right",
+        "labelFontSize": 11,
+        "titleFontSize": 12
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {"type": "rule", "strokeWidth": 1},
+      "encoding": {
+        "y": {
+          "field": "lower_whisker",
+          "type": "quantitative",
+          "title": "Methane Enhancement (mol m⁻²)",
+          "scale": {"zero": false},
+          "axis": {
+            "titleFontSize": 12,
+            "labelFontSize": 11,
+            "grid": true,
+            "gridOpacity": 0.15
+          }
+        },
+        "y2": {"field": "upper_whisker"},
+        "color": {"value": "#555"}
+      }
+    },
+    {
+      "mark": {"type": "rule", "strokeWidth": 1.5},
+      "encoding": {
+        "x": {"field": "datetime", "type": "temporal", "offset": -8},
+        "x2": {"field": "datetime", "offset": 8},
+        "y": {"field": "lower_whisker", "type": "quantitative"},
+        "color": {"value": "#555"}
+      }
+    },
+    {
+      "mark": {"type": "rule", "strokeWidth": 1.5},
+      "encoding": {
+        "x": {"field": "datetime", "type": "temporal", "offset": -8},
+        "x2": {"field": "datetime", "offset": 8},
+        "y": {"field": "upper_whisker", "type": "quantitative"},
+        "color": {"value": "#555"}
+      }
+    },
+    {
+      "mark": {"type": "bar", "size": 14},
+      "encoding": {
+        "y": {"field": "q1", "type": "quantitative"},
+        "y2": {"field": "q3"},
+        "color": {"value": "#4C78A8"},
+        "opacity": {"value": 0.7},
+        "tooltip": [
+          {"field": "datetime", "type": "temporal", "title": "Date", "format": "%Y-%m-%d"},
+          {"field": "min", "type": "quantitative", "title": "Min", "format": ".4f"},
+          {"field": "q1", "type": "quantitative", "title": "Q1", "format": ".4f"},
+          {"field": "median", "type": "quantitative", "title": "Median", "format": ".4f"},
+          {"field": "q3", "type": "quantitative", "title": "Q3", "format": ".4f"},
+          {"field": "max", "type": "quantitative", "title": "Max", "format": ".4f"},
+          {"field": "mean", "type": "quantitative", "title": "Mean", "format": ".4f"},
+          {"field": "count", "type": "quantitative", "title": "Pixels"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "line", "stroke": "#9ecae1", "strokeWidth": 2, "point": false},
+      "encoding": {
+        "y": {"field": "median", "type": "quantitative"}
+      }
+    },
+    {
+      "mark": {"type": "point", "opacity": 0, "size": 1},
+      "encoding": {
+        "y": {"field": "plot_min", "type": "quantitative"}
+      }
+    },
+    {
+      "mark": {"type": "point", "opacity": 0, "size": 1},
+      "encoding": {
+        "y": {"field": "plot_max", "type": "quantitative"}
+      }
+    },
+    {
+      "mark": {"type": "tick", "color": "white", "size": 14, "thickness": 2},
+      "encoding": {
+        "y": {"field": "median", "type": "quantitative"}
+      }
+    },
+    {
+      "mark": {"type": "point", "color": "#e45756", "size": 30, "shape": "diamond"},
+      "encoding": {
+        "y": {"field": "mean", "type": "quantitative"}
+      }
+    }
+  ]
+}
