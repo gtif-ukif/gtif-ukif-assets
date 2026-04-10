@@ -1,0 +1,24 @@
+{
+  "fill-color": "rgba(0, 116, 217, 0.24)",
+  "stroke-color": "#0b4f7f",
+  "stroke-width": 2,
+  "z-index": 3,
+  "tooltip": [
+    {
+      "id": "labels",
+      "title": "Class"
+    },
+    {
+      "id": "DN",
+      "title": "Class Code"
+    },
+    {
+      "id": "mean_uhi",
+      "title": "Mean UHI"
+    },
+    {
+      "id": "range_uhi",
+      "title": "UHI Range"
+    }
+  ]
+}

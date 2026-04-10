@@ -1,0 +1,231 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Side-by-side histograms of Imperviousness (band 1, %) and UHI mean intensity (band 2, \u00b0C) from a 2-band COG /statistics response. Each band has its own real-unit x-axis.",
+  "background": "transparent",
+  "autosize": { "type": "pad", "contains": "padding" },
+  "config": {
+    "view": { "stroke": null }
+  },
+  "title": {
+    "text": "Imperviousness vs Urban Heat Island Distribution",
+    "subtitle": "Pixel histograms within selected bbox",
+    "anchor": "start",
+    "fontSize": 14,
+    "subtitleFontSize": 11,
+    "subtitleColor": "#666"
+  },
+  "data": { "name": "timeseries" },
+  "hconcat": [
+    {
+      "title": {
+        "text": "Imperviousness (band 1)",
+        "subtitle": "% impervious surface cover",
+        "anchor": "start",
+        "fontSize": 12,
+        "subtitleFontSize": 10,
+        "subtitleColor": "#666"
+      },
+      "width": 280,
+      "height": 260,
+      "transform": [
+        {
+          "calculate": "datum.properties.statistics.asset_b1.histogram[0]",
+          "as": "counts"
+        },
+        {
+          "calculate": "datum.properties.statistics.asset_b1.histogram[1]",
+          "as": "edges"
+        },
+        {
+          "calculate": "datum.properties.statistics.asset_b1.mean",
+          "as": "stat_mean"
+        },
+        {
+          "calculate": "datum.properties.statistics.asset_b1.median",
+          "as": "stat_median"
+        },
+        {
+          "calculate": "datum.properties.statistics.asset_b1.std",
+          "as": "stat_std"
+        },
+        {
+          "calculate": "datum.properties.statistics.asset_b1.min",
+          "as": "stat_min"
+        },
+        {
+          "calculate": "datum.properties.statistics.asset_b1.max",
+          "as": "stat_max"
+        },
+        {
+          "flatten": ["counts"],
+          "as": ["count"]
+        },
+        {
+          "window": [{ "op": "row_number", "as": "bin" }]
+        },
+        {
+          "calculate": "datum.edges[datum.bin - 1]",
+          "as": "bin_start"
+        },
+        {
+          "calculate": "datum.edges[datum.bin]",
+          "as": "bin_end"
+        },
+        {
+          "filter": "isValid(datum.bin_start) && isValid(datum.bin_end) && isValid(datum.count)"
+        },
+        {
+          "joinaggregate": [{ "op": "sum", "field": "count", "as": "total" }]
+        },
+        {
+          "calculate": "datum.total > 0 ? (datum.count / datum.total) * 100 : 0",
+          "as": "percentage"
+        },
+        {
+          "calculate": "format(datum.bin_start, '.1f') + '\u2013' + format(datum.bin_end, '.1f') + ' %'",
+          "as": "bin_label"
+        }
+      ],
+      "mark": {
+        "type": "bar",
+        "color": "#555555",
+        "opacity": 0.85,
+        "stroke": "#333333",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "x": {
+          "field": "bin_start",
+          "type": "quantitative",
+          "title": "Imperviousness (%)",
+          "scale": { "domain": [0, 100], "nice": false },
+          "axis": { "labelFontSize": 10, "tickCount": 6 }
+        },
+        "x2": { "field": "bin_end" },
+        "y": {
+          "field": "percentage",
+          "type": "quantitative",
+          "title": "% of pixels",
+          "axis": { "format": ".0f", "labelFontSize": 10 }
+        },
+        "tooltip": [
+          { "field": "bin_label", "type": "nominal", "title": "Bin range" },
+          { "field": "count", "type": "quantitative", "title": "Pixel count" },
+          { "field": "percentage", "type": "quantitative", "format": ".2f", "title": "% of pixels" },
+          { "field": "stat_mean", "type": "quantitative", "format": ".2f", "title": "Band mean" },
+          { "field": "stat_median", "type": "quantitative", "format": ".2f", "title": "Band median" },
+          { "field": "stat_std", "type": "quantitative", "format": ".2f", "title": "Band std dev" },
+          { "field": "stat_min", "type": "quantitative", "format": ".2f", "title": "Band min" },
+          { "field": "stat_max", "type": "quantitative", "format": ".2f", "title": "Band max" }
+        ]
+      }
+    },
+    {
+      "title": {
+        "text": "Urban Heat Island (band 2)",
+        "subtitle": "Mean UHI intensity 2022\u20132024 (\u00b0C)",
+        "anchor": "start",
+        "fontSize": 12,
+        "subtitleFontSize": 10,
+        "subtitleColor": "#666"
+      },
+      "width": 280,
+      "height": 260,
+      "transform": [
+        {
+          "calculate": "datum.properties.statistics.asset_b2.histogram[0]",
+          "as": "counts"
+        },
+        {
+          "calculate": "datum.properties.statistics.asset_b2.histogram[1]",
+          "as": "edges"
+        },
+        {
+          "calculate": "datum.properties.statistics.asset_b2.mean",
+          "as": "stat_mean"
+        },
+        {
+          "calculate": "datum.properties.statistics.asset_b2.median",
+          "as": "stat_median"
+        },
+        {
+          "calculate": "datum.properties.statistics.asset_b2.std",
+          "as": "stat_std"
+        },
+        {
+          "calculate": "datum.properties.statistics.asset_b2.min",
+          "as": "stat_min"
+        },
+        {
+          "calculate": "datum.properties.statistics.asset_b2.max",
+          "as": "stat_max"
+        },
+        {
+          "flatten": ["counts"],
+          "as": ["count"]
+        },
+        {
+          "window": [{ "op": "row_number", "as": "bin" }]
+        },
+        {
+          "calculate": "datum.edges[datum.bin - 1]",
+          "as": "bin_start"
+        },
+        {
+          "calculate": "datum.edges[datum.bin]",
+          "as": "bin_end"
+        },
+        {
+          "filter": "isValid(datum.bin_start) && isValid(datum.bin_end) && isValid(datum.count)"
+        },
+        {
+          "joinaggregate": [{ "op": "sum", "field": "count", "as": "total" }]
+        },
+        {
+          "calculate": "datum.total > 0 ? (datum.count / datum.total) * 100 : 0",
+          "as": "percentage"
+        },
+        {
+          "calculate": "format(datum.bin_start, '.3f') + '\u2013' + format(datum.bin_end, '.3f') + ' \u00b0C'",
+          "as": "bin_label"
+        }
+      ],
+      "mark": {
+        "type": "bar",
+        "color": "#e6a817",
+        "opacity": 0.85,
+        "stroke": "#a07000",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "x": {
+          "field": "bin_start",
+          "type": "quantitative",
+          "title": "UHI Intensity (\u00b0C)",
+          "axis": { "labelFontSize": 10, "tickCount": 6, "format": ".2f" }
+        },
+        "x2": { "field": "bin_end" },
+        "y": {
+          "field": "percentage",
+          "type": "quantitative",
+          "title": "% of pixels",
+          "axis": { "format": ".0f", "labelFontSize": 10 }
+        },
+        "tooltip": [
+          { "field": "bin_label", "type": "nominal", "title": "Bin range" },
+          { "field": "count", "type": "quantitative", "title": "Pixel count" },
+          { "field": "percentage", "type": "quantitative", "format": ".2f", "title": "% of pixels" },
+          { "field": "stat_mean", "type": "quantitative", "format": ".4f", "title": "Band mean" },
+          { "field": "stat_median", "type": "quantitative", "format": ".4f", "title": "Band median" },
+          { "field": "stat_std", "type": "quantitative", "format": ".4f", "title": "Band std dev" },
+          { "field": "stat_min", "type": "quantitative", "format": ".4f", "title": "Band min" },
+          { "field": "stat_max", "type": "quantitative", "format": ".4f", "title": "Band max" }
+        ]
+      }
+    }
+  ],
+  "resolve": {
+    "scale": { "x": "independent", "y": "independent" },
+    "axis": { "x": "independent", "y": "independent" }
+  }
+}
