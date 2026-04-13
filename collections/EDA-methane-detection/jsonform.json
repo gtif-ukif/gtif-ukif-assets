@@ -1,7 +1,7 @@
 {
     "type": "object",
     "title": "Methane Indicator Parameters",
-    "description": "Single AOI (draw on map or type bbox), time range and cloud cover. Used for STAC search and processing.",
+    "description": "Select AOI by either drawing on the map or entering a bounding box.",
     "format": "grid-strict",
     "properties": {
         "aoi_mode": {
