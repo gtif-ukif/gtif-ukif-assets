@@ -2,7 +2,7 @@
     "type": "object",
     "title": "Methane Indicator Parameters",
     "description": "Select AOI by either drawing on the map or entering a bounding box.",
-    "format": "grid-strict",
+    "format": "grid",
     "properties": {
         "aoi_mode": {
             "type": "string",
@@ -11,10 +11,7 @@
                 "draw",
                 "text"
             ],
-            "default": "draw",
-            "options": {
-                "grid_columns": 12
-            }
+            "default": "draw"
         },
         "aoi": {
             "type": "array",
@@ -36,8 +33,7 @@
                 "drawtools": {
                     "for": "eox-map#main",
                     "projection": "EPSG:4326"
-                },
-                "grid_columns": 12
+                }
             }
         },
         "aoi_text": {
@@ -48,47 +44,34 @@
             "options": {
                 "inputAttributes": {
                     "placeholder": "-3.67, 40.23, -3.61, 40.29"
-                },
-                "grid_columns": 12
+                }
             }
         },
         "toi_start": {
             "type": "string",
             "format": "date",
             "title": "Start Date",
-            "default": "2023-01-01",
-            "options": {
-                "grid_columns": 6
-            }
+            "default": "2023-01-01"
         },
         "toi_end": {
             "type": "string",
             "format": "date",
             "title": "End Date",
-            "default": "2023-01-10",
-            "options": {
-                "grid_columns": 6
-            }
+            "default": "2023-01-10"
         },
         "cloud_cover": {
             "type": "number",
             "title": "Max Cloud Cover (%)",
             "minimum": 0,
             "maximum": 100,
-            "default": 10,
-            "options": {
-                "grid_columns": 6
-            }
+            "default": 10
         },
         "limit": {
             "type": "number",
             "title": "Limit (max items)",
             "minimum": 1,
             "maximum": 100,
-            "default": 10,
-            "options": {
-                "grid_columns": 6
-            }
+            "default": 10
         }
     },
     "required": [
