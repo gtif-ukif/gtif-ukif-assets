@@ -1,7 +1,6 @@
 {
     "type": "object",
-    "title": "Methane Indicator Parameters",
-    "description": "Select AOI by either drawing on the map or entering a bounding box.",
+    "options": { "disable_properties": true },
     "format": "grid-strict",
     "properties": {
         "aoi_mode": {
@@ -42,9 +41,8 @@
         },
         "aoi_text": {
             "type": "string",
-            "title": "AOI (manual bbox: minLon,minLat,maxLon,maxLat)",
+            "title": "AOI bbox (leave empty to use drawn AOI)",
             "default": "",
-            "description": "Leave empty to use drawn AOI.",
             "options": {
                 "inputAttributes": {
                     "placeholder": "-3.67, 40.23, -3.61, 40.29"
