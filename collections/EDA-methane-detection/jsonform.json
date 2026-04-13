@@ -36,7 +36,7 @@
                     "for": "eox-map#main",
                     "projection": "EPSG:4326"
                 },
-                "grid_columns": 12
+                "grid_columns": 6
             }
         },
         "aoi_text": {
@@ -47,7 +47,7 @@
                 "inputAttributes": {
                     "placeholder": "-3.67, 40.23, -3.61, 40.29"
                 },
-                "grid_columns": 12
+                "grid_columns": 6
             }
         },
         "toi_start": {
