@@ -1,24 +1,28 @@
 {
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Solar bifacial PV metrics comparison for the selected AOI (2020 vs 2022).",
   "width": 520,
   "height": 250,
-  "autosize": "fit",
   "padding": 16,
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
   "title": {
     "text": "Solar Metrics Comparison",
     "subtitle": "Performance statistics within the selected Area of Interest (2020 vs 2022)",
-    "fontSize": 15,
+    "fontSize": 14,
+    "subtitleFontSize": 11,
     "fontWeight": "bold",
     "anchor": "start",
     "offset": 20
   },
-  "data": { "name": "table" },
+  "data": {
+    "values": []
+  },
   "transform": [
-    { "calculate": "datum.metrics.area_ha", "as": "Area (ha)" },
-    { "calculate": "datum.metrics.capacity_MW", "as": "Capacity (MW)" },
-    { "calculate": "datum.metrics.avg_monofacial_kWh_kWp", "as": "Monofacial kWh/kWp" },
-    { "calculate": "datum.metrics.avg_bifacial_gain_percent", "as": "Bifacial Gain %" },
-    { "calculate": "datum.metrics.total_energy_kWh", "as": "Total kWh" },
+    { "calculate": "datum.area_ha", "as": "Area (ha)" },
+    { "calculate": "datum.capacity_MW", "as": "Capacity (MW)" },
+    { "calculate": "datum.avg_monofacial_kWh_kWp", "as": "Monofacial kWh/kWp" },
+    { "calculate": "datum.avg_bifacial_gain_percent", "as": "Bifacial Gain %" },
+    { "calculate": "datum.total_energy_kWh", "as": "Total kWh" },
     {
       "fold": ["Area (ha)", "Capacity (MW)", "Monofacial kWh/kWp", "Bifacial Gain %", "Total kWh"],
       "as": ["Metric", "Value"]
