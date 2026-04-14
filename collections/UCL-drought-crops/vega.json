@@ -1,0 +1,102 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Mean SPEI per crop type (2020 / 2022 / 2025) for the selected AOI.",
+  "width": 360,
+  "height": { "step": 22 },
+  "padding": 16,
+  "background": "transparent",
+  "title": {
+    "text": "Drought Stress by Crop Type",
+    "subtitle": "Mean SPEI within AOI — red = drier, green = wetter",
+    "fontSize": 14,
+    "subtitleFontSize": 11,
+    "fontWeight": "bold",
+    "anchor": "start",
+    "offset": 20
+  },
+  "data": {
+    "values": []
+  },
+  "transform": [
+    {
+      "fold": ["2020", "2022", "2025"],
+      "as": ["Year", "SPEI"]
+    },
+    { "filter": "datum.SPEI !== null" }
+  ],
+  "encoding": {
+    "y": {
+      "field": "Crop_Name",
+      "type": "nominal",
+      "title": null,
+      "sort": null,
+      "axis": {
+        "labelFontSize": 11,
+        "labelPadding": 6,
+        "domain": false,
+        "ticks": false
+      }
+    },
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {
+        "orient": "top",
+        "labelFontSize": 12,
+        "labelFontWeight": "bold",
+        "labelPadding": 8,
+        "domain": false,
+        "ticks": false
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": { "type": "rect", "stroke": "#ffffff", "strokeWidth": 1 },
+      "encoding": {
+        "color": {
+          "field": "SPEI",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "redyellowgreen",
+            "domain": [-2, 2],
+            "clamp": true
+          },
+          "legend": {
+            "title": "SPEI",
+            "orient": "right",
+            "gradientLength": 180
+          }
+        },
+        "tooltip": [
+          { "field": "Crop_Name", "type": "nominal", "title": "Crop" },
+          { "field": "Year", "type": "ordinal" },
+          { "field": "SPEI", "type": "quantitative", "format": ".3f" }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "baseline": "middle",
+        "fontSize": 11,
+        "font": "Inter, sans-serif"
+      },
+      "encoding": {
+        "text": { "field": "SPEI", "type": "quantitative", "format": ".2f" },
+        "color": {
+          "condition": {
+            "test": "abs(datum.SPEI) > 1.25",
+            "value": "#ffffff"
+          },
+          "value": "#222"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": { "stroke": "transparent" },
+    "axis": { "grid": false }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Solar bifacial PV metrics comparison for the selected AOI (2020 vs 2022).",
+  "width": 520,
+  "height": 250,
+  "padding": 16,
+  "background": "transparent",
+  "title": {
+    "text": "Solar Metrics Comparison",
+    "subtitle": "Performance statistics within the selected Area of Interest (2020 vs 2022)",
+    "fontSize": 14,
+    "subtitleFontSize": 11,
+    "fontWeight": "bold",
+    "anchor": "start",
+    "offset": 20
+  },
+  "data": {
+    "values": []
+  },
+  "transform": [
+    { "calculate": "datum.area_ha", "as": "Area (ha)" },
+    { "calculate": "datum.capacity_MW", "as": "Capacity (MW)" },
+    { "calculate": "datum.avg_monofacial_kWh_kWp", "as": "Monofacial kWh/kWp" },
+    { "calculate": "datum.avg_bifacial_gain_percent", "as": "Bifacial Gain %" },
+    { "calculate": "datum.total_energy_kWh", "as": "Total kWh" },
+    {
+      "fold": ["Area (ha)", "Capacity (MW)", "Monofacial kWh/kWp", "Bifacial Gain %", "Total kWh"],
+      "as": ["Metric", "Value"]
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Metric",
+      "type": "nominal",
+      "axis": {
+        "orient": "top",
+        "labelAngle": 0,
+        "labelFontSize": 11,
+        "labelPadding": 10,
+        "title": null,
+        "domain": false,
+        "ticks": false
+      }
+    },
+    "y": {
+      "field": "year",
+      "type": "nominal",
+      "axis": {
+        "title": null,
+        "labelFontSize": 12,
+        "labelFontWeight": "bold",
+        "labelPadding": 10,
+        "domain": false,
+        "ticks": false
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": { "type": "rect", "stroke": "#d1d1d1", "strokeWidth": 0.5 },
+      "encoding": {
+        "color": {
+          "condition": { "test": "datum.year === '2020'", "value": "#fcfcfc" },
+          "value": "white"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "baseline": "middle",
+        "fontSize": 12,
+        "font": "Inter, sans-serif"
+      },
+      "encoding": {
+        "text": { "field": "Value", "type": "quantitative", "format": ",.2f" },
+        "color": { "value": "#222" }
+      }
+    }
+  ],
+  "config": {
+    "view": { "stroke": "transparent" },
+    "axis": { "grid": false }
+  }
+}
