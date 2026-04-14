@@ -1,0 +1,58 @@
+{
+    "type": "object",
+    "options": { "disable_properties": true },
+    "format": "grid-strict",
+    "properties": {
+        "aoi_mode": {
+            "type": "string",
+            "title": "AOI input method",
+            "enum": [
+                "draw",
+                "text"
+            ],
+            "default": "draw",
+            "options": {
+                "grid_columns": 12
+            }
+        },
+        "aoi": {
+            "type": "array",
+            "title": "AOI (draw on map)",
+            "minItems": 4,
+            "maxItems": 4,
+            "items": {
+                "type": "number"
+            },
+            "default": [
+                -2.67,
+                51.23,
+                -2.61,
+                51.29
+            ],
+            "format": "bounding-box",
+            "options": {
+                "autoStartSelection": false,
+                "drawtools": {
+                    "for": "eox-map#main",
+                    "projection": "EPSG:4326"
+                },
+                "grid_columns": 6
+            }
+        },
+        "aoi_text": {
+            "type": "string",
+            "title": "AOI bbox (leave empty to use drawn AOI)",
+            "default": "",
+            "options": {
+                "inputAttributes": {
+                    "placeholder": "-2.67, 51.23, -2.61, 51.29"
+                },
+                "grid_columns": 6
+            }
+        }
+    },
+    "required": [
+        "aoi_mode"
+    ],
+    "additionalProperties": false
+}

@@ -1,0 +1,5 @@
+{
+  "inputs": {
+    "bbox": "{{#aoi_text}}[{{aoi_text}}]{{/aoi_text}}{{^aoi_text}}[{{aoi}}]{{/aoi_text}}"
+  }
+}
