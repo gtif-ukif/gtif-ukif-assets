@@ -147,13 +147,13 @@
       "transform": [{"filter": "isValid(datum.error)"}],
       "mark": {
         "type": "text",
-        "fontSize": 15,
+        "fontSize": 14,
         "fontWeight": "bold",
         "color": "#c93438",
         "align": "center",
         "baseline": "middle",
         "lineBreak": "|",
-        "limit": 480
+        "limit": 520
       },
       "encoding": {
         "x": {"value": 260},
