@@ -142,6 +142,24 @@
       "encoding": {
         "y": {"field": "mean", "type": "quantitative"}
       }
+    },
+    {
+      "transform": [{"filter": "isValid(datum.error)"}],
+      "mark": {
+        "type": "text",
+        "fontSize": 15,
+        "fontWeight": "bold",
+        "color": "#c93438",
+        "align": "center",
+        "baseline": "middle",
+        "lineBreak": "|",
+        "limit": 480
+      },
+      "encoding": {
+        "x": {"value": 260},
+        "y": {"value": 200},
+        "text": {"field": "error"}
+      }
     }
   ]
 }
