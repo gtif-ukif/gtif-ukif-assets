@@ -65,8 +65,14 @@
           },
           "legend": {
             "title": "SPEI",
-            "orient": "right",
-            "gradientLength": 180
+            "orient": "top",
+            "direction": "horizontal",
+            "gradientLength": 260,
+            "gradientThickness": 12,
+            "titleAlign": "left",
+            "titleFontSize": 11,
+            "titlePadding": 6,
+            "offset": 8
           }
         },
         "tooltip": [
