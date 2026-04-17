@@ -22,9 +22,9 @@
     { "calculate": "datum.capacity_MW", "as": "Capacity (MW)" },
     { "calculate": "datum.avg_monofacial_kWh_kWp", "as": "Monofacial kWh" },
     { "calculate": "datum.avg_bifacial_gain_percent", "as": "Bifacial Gain %" },
-    { "calculate": "datum.total_energy_kWh", "as": "Total kWh p.a." },
+    { "calculate": "datum.total_energy_kWh", "as": "Total kWh p a" },
     {
-      "fold": ["Area (ha)", "Capacity (MW)", "Monofacial kWh", "Bifacial Gain %", "Total kWh p.a."],
+      "fold": ["Area (ha)", "Capacity (MW)", "Monofacial kWh", "Bifacial Gain %", "Total kWh p a"],
       "as": ["Metric", "Value"]
     }
   ],
