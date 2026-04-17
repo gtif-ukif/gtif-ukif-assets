@@ -10,7 +10,7 @@
   "legend": {
     "title": "Legend",
     "range": ["rgb(255, 0, 0)"],
-    "domain": ["France Auto RoofTop Detection"],
+    "domain": ["Auto RoofTop Detection"],
     "scaleType": "categorical",
     "markType": "circle"
   }
