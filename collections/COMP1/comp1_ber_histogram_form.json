@@ -13,7 +13,7 @@
           "for": "eox-map#main",
           "layerId": "COMP3",
           "show-list": true,
-          "feature-name-key": "MEDIAN_BER",
+          "feature-name-key": "ED_NAME",
           "featureStyles": {
             "layer": {
               "fill-color": "rgba(51, 153, 204, 0.45)",

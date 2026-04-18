@@ -10,7 +10,7 @@
     "resize": true
   },
   "width": "container",
-  "height": 340,
+  "height": 380,
   "title": {
     "text": "UHI Distribution for Selected BER Polygons",
     "subtitle": "Grouped histogram of TiTiler raster-statistics bins for each selected polygon"
@@ -88,7 +88,7 @@
       "filter": "isValid(datum.count) && datum.count > 0 && isValid(datum.bin_start) && isValid(datum.bin_end)"
     },
     {
-      "calculate": "format(datum.bin_start, '.2f') + ' to ' + format(datum.bin_end, '.2f')",
+      "calculate": "format((datum.bin_start + datum.bin_end) / 2, '.2f')",
       "as": "bin_label"
     }
   ],
@@ -100,13 +100,15 @@
     "x": {
       "field": "bin_label",
       "type": "nominal",
-      "title": "UHI bin",
+      "title": "UHI intensity (°C, bin midpoint)",
       "sort": {
         "field": "bin_start",
         "order": "ascending"
       },
       "axis": {
-        "labelAngle": -45
+        "labelAngle": -30,
+        "labelFontSize": 12,
+        "labelOverlap": "parity"
       }
     },
     "xOffset": {
@@ -121,7 +123,7 @@
     "color": {
       "field": "selection_label",
       "type": "nominal",
-      "title": "BER Rating",
+      "title": "Admin unit (ED)",
       "sort": null,
       "scale": {
         "range": [
@@ -142,7 +144,7 @@
       {
         "field": "selection_label",
         "type": "nominal",
-        "title": "BER Rating"
+        "title": "Admin unit (ED)"
       },
       {
         "field": "class_label",

@@ -5,7 +5,7 @@
       "type": "Feature",
       "properties": {
         "selection_id": "{{multiQueryIndex}}",
-        "selection_label": "{{feature.properties.MEDIAN_BER}}",
+        "selection_label": "{{feature.properties.ED_NAME}}",
         "class_label": "{{feature.properties.MEDIAN_BER}}"
       },
       "geometry": "{{feature.geometry}}"
