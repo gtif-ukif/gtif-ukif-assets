@@ -3,7 +3,7 @@
   "properties": {
     "bbox": {
       "type": "geojson",
-      "title": "Select area (bbox) on map",
+      "title": "Select area on map",
       "format": "bounding-box",
       "options": {
         "autoStartSelection": false,
@@ -31,8 +31,5 @@
       }
     }
   },
-  "required": [
-    "bbox"
-  ],
   "additionalProperties": false
 }
