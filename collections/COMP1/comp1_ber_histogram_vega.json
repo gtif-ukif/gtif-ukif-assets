@@ -123,7 +123,7 @@
     "color": {
       "field": "selection_label",
       "type": "nominal",
-      "title": "Admin unit (ED)",
+      "title": "BER Rating",
       "sort": null,
       "scale": {
         "range": [
@@ -144,7 +144,7 @@
       {
         "field": "selection_label",
         "type": "nominal",
-        "title": "Admin unit (ED)"
+        "title": "BER Rating"
       },
       {
         "field": "class_label",
