@@ -1,0 +1,16 @@
+{
+  "stroke-color": "rgba(55, 65, 80, 0.95)",
+  "stroke-width": 1.25,
+  "jsonform": {
+    "type": "object",
+    "title": "",
+    "properties": {}
+  },
+  "legend": {
+    "title": "Legend",
+    "range": ["rgba(55, 65, 80, 0.95)"],
+    "domain": ["Roads"],
+    "scaleType": "categorical",
+    "markType": "line"
+  }
+}
