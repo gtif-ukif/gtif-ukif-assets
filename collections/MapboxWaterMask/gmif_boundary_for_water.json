@@ -1,0 +1,17 @@
+{
+  "fill-color": "rgba(0, 0, 0, 0)",
+  "stroke-width": 2,
+  "stroke-color": "rgb(85, 160, 175)",
+  "jsonform": {
+    "type": "object",
+    "title": "",
+    "properties": {}
+  },
+  "legend": {
+    "title": "Legend",
+    "range": ["rgb(85, 160, 175)"],
+    "domain": ["GMIF Boundary"],
+    "scaleType": "categorical",
+    "markType": "circle"
+  }
+}
