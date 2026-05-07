@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "description": "Solar bifacial PV metrics comparison for the selected AOI (2020 vs 2022).",
-  "width": 640,
+  "width": 520,
   "height": 250,
   "padding": 16,
   "background": "transparent",
@@ -19,13 +19,11 @@
   },
   "transform": [
     { "calculate": "datum.area_ha", "as": "Area (ha)" },
-    { "calculate": "datum.capacity_MW", "as": "Capacity (MW)" },
-    { "calculate": "datum.avg_monofacial_kWh_kWp", "as": "Monofacial kWh" },
     { "calculate": "datum.avg_bifacial_gain_percent", "as": "Bifacial Gain %" },
-    { "calculate": "datum.total_energy_kWh", "as": "Total kWh p a" },
+    { "calculate": "datum.total_energy_kWh / 1000", "as": "Total MWh p a" },
     { "calculate": "datum.annual_license_GBP", "as": "Annual License (GBP)" },
     {
-      "fold": ["Area (ha)", "Capacity (MW)", "Monofacial kWh", "Bifacial Gain %", "Total kWh p a", "Annual License (GBP)"],
+      "fold": ["Area (ha)", "Bifacial Gain %", "Total MWh p a", "Annual License (GBP)"],
       "as": ["Metric", "Value"]
     }
   ],
